@@ -46,6 +46,16 @@ class Product
      */
     private $isNew;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="products")
+     */
+    private $category;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Shop", inversedBy="products")
+     */
+    private $shop;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -119,6 +129,30 @@ class Product
     public function setIsNew(bool $isNew): self
     {
         $this->isNew = $isNew;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    public function getShop(): ?Shop
+    {
+        return $this->shop;
+    }
+
+    public function setShop(?Shop $shop): self
+    {
+        $this->shop = $shop;
 
         return $this;
     }
