@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ShopRepository")
@@ -20,21 +21,30 @@ class Shop
 
     /**
      * @ORM\Column(type="string", length=80)
+     * @Assert\NotBlank
+     * @Assert\Regex("/^[\p{L}_\d \n]+$/")
+     * @Assert\Length(min=1, max=80)
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Regex("/^[\p{L}_\d \n]+$/")
+     * @Assert\Length(min=1, max=80)
      */
-    private $Address;
+    private $address;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Regex("/^\+?[\d]+$/")
+     * @Assert\Length(min=9, max=18)
      */
     private $phone;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email(checkMX = true)
      */
     private $email;
 
@@ -67,12 +77,12 @@ class Shop
 
     public function getAddress(): ?string
     {
-        return $this->Address;
+        return $this->address;
     }
 
-    public function setAddress(string $Address): self
+    public function setAddress(string $address): self
     {
-        $this->Address = $Address;
+        $this->address = $address;
 
         return $this;
     }

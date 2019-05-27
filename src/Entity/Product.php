@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -23,26 +24,35 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=80)
+     * @Assert\NotBlank
+     * @Assert\Regex("/^[\p{L}_\d ]+$/")
+     * @Assert\Length(min=1, max=254)
      */
     private $name;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Type(type="integer")
      */
     private $price;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank
+     * @Assert\Regex("/^[\p{L}_\d \n]+$/")
+     * @Assert\Length(min=1, max=254)
      */
     private $description;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Assert\Type(type="bool")
      */
     private $isRecommended;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Assert\Type(type="bool")
      */
     private $isNew;
 
