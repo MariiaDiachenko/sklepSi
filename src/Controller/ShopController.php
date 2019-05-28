@@ -86,6 +86,11 @@ class ShopController extends Controller
     public function delete(Request $request, Shop $shop): Response
     {
         if ($this->isCsrfTokenValid('delete'.$shop->getId(), $request->request->get('_token'))) {
+          if ($shop->hasProducts()) {
+            $this->addFlash('danger', 'message.cant_delete_shop_containing_products');
+            return $this->redirect($this->generateUrl('shop_show', ['id'=>$shop->getId()]));
+          }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($shop);
             $entityManager->flush();

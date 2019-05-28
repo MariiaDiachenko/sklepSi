@@ -20,14 +20,19 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    public function queryAllByCategory($category=null): QueryBuilder
+    public function queryAllWithFilters($categoryId=null, $shopId=null): QueryBuilder
     {
       $builder = $this->createQueryBuilder('p')
         ->orderBy('p.timestamp', 'DESC');
 
-      if ($category && is_int($category)) {
+      if ($categoryId && is_int($categoryId)) {
         $builder->where('p.category = :id')
-          ->setParameter(':id', $category, \PDO::PARAM_INT);
+          ->setParameter(':id', $categoryId, \PDO::PARAM_INT);
+      }
+
+      if ($shopId && is_int($shopId)) {
+        $builder->where('p.shop = :id')
+          ->setParameter(':id', $shopId, \PDO::PARAM_INT);
       }
 
       return $builder;

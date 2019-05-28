@@ -49,7 +49,7 @@ class Shop
     private $email;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="shop")
+     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="shop", fetch="LAZY")
      */
     private $products;
 
@@ -109,6 +109,11 @@ class Shop
         $this->email = $email;
 
         return $this;
+    }
+
+    public function hasProducts()
+    {
+      return (bool) count($this->products);
     }
 
     /**

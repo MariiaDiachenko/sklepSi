@@ -87,6 +87,11 @@ class CategoryController extends Controller
     public function delete(Request $request, Category $category): Response
     {
         if ($this->isCsrfTokenValid('delete'.$category->getId(), $request->request->get('_token'))) {
+            if ($category->hasProducts()) {
+              $this->addFlash('danger', 'message.cant_delete_category_containing_products');
+              return $this->redirect($this->generateUrl('category_show', ['id'=>$category->getId()]));
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($category);
             $entityManager->flush();

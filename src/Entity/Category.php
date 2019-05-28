@@ -6,9 +6,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
+ * @UniqueEntity("name")
  */
 class Category
 {
@@ -20,7 +22,7 @@ class Category
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=True)
      * @Assert\NotBlank
      * @Assert\Regex("/^[\p{L}_\d ]+$/")
      * @Assert\Length(min=1, max=254)
@@ -28,7 +30,7 @@ class Category
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="category", fetch="LAZY")
      */
     private $products;
 
@@ -52,6 +54,11 @@ class Category
         $this->name = $name;
 
         return $this;
+    }
+
+    public function hasProducts()
+    {
+      return (bool) count($this->products);
     }
 
     /**
