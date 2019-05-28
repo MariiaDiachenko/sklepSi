@@ -38,6 +38,7 @@ class CategoryController extends Controller
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($category);
             $entityManager->flush();
+            $this->addFlash('success', 'message.cretated_successfully');
 
             return $this->redirectToRoute('category_index');
         }

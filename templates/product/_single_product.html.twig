@@ -1,0 +1,28 @@
+{# requires variable product of type App\Entity\Product #}
+
+<div class="col-lg-4 col-md-6 mb-4">
+  <div class="card h-100">
+    <div class="row pl-3">
+      <a href="{{ path('product_show', {'id': product.id}) }}">
+        <span class="btn btn-success m-2">show</span>
+      </a>
+      <a href="{{ path('product_edit', {'id': product.id}) }}">
+        <span class="btn btn-success m-2">edit</span>
+      </a>
+    </div>
+    <a href="#">
+      <img class="card-img-top" src="{{ asset( 'uploads/imgs/' ~ product.img) }}" alt="">
+    </a>
+    <div class="card-body">
+      <h4 class="card-title">
+        <a href="#">{{product.name}}</a>
+      </h4>
+      <h5>{{product.price|slice(0,-2) ~ '.' ~ product.price|slice(-2) ~ ' zł'}}</h5>
+      <p class="card-text">{{product.description|slice(0, 155)}}</p>
+    </div>
+    <div class="card-footer">
+    <div>{{ product.isRecommended ? 'product.recommended' : '' }}</div>
+    <div>{{ product.isNew ? 'product.new' : '' }}</div>
+    </div>
+  </div>
+</div>
