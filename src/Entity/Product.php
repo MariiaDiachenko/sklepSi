@@ -11,6 +11,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Product
 {
+    /**Items per page */
+    const NUMBER_OF_ITEMS = 10;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @Route("/product")
@@ -18,10 +19,18 @@ class ProductController extends Controller
     /**
      * @Route("/", name="product_index", methods={"GET"})
      */
-    public function index(ProductRepository $productRepository): Response
+    public function index(Request $request, ProductRepository $productRepository, PaginatorInterface $paginator): Response
     {
+      $pagination = $paginator->paginate(
+         $productRepository->queryAllByCategory(
+           $request->query->getInt('category', 0)
+         ),
+         $request->query->getInt('page', 1),
+         Product::NUMBER_OF_ITEMS
+     );
+
         return $this->render('product/index.html.twig', [
-            'products' => $productRepository->findAll(),
+            'products' => $pagination,
         ]);
     }
 
