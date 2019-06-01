@@ -14,6 +14,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class Category
 {
+    /**Items per page */
+    const NUMBER_OF_ITEMS = 10;
+  
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

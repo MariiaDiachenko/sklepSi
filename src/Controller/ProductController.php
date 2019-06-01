@@ -21,14 +21,14 @@ class ProductController extends Controller
      */
     public function index(Request $request, ProductRepository $productRepository, PaginatorInterface $paginator): Response
     {
-      $pagination = $paginator->paginate(
-         $productRepository->queryAllWithFilters(
-           $request->query->getInt('category', 0)
-           $request->query->getInt('shop', 0)
-         ),
-         $request->query->getInt('page', 1),
-         Product::NUMBER_OF_ITEMS
-     );
+        $pagination = $paginator->paginate(
+           $productRepository->queryAllWithFilters(
+             $request->query->getInt('category', 0),
+             $request->query->getInt('shop', 0)
+           ),
+           $request->query->getInt('page', 1),
+           Product::NUMBER_OF_ITEMS
+       );
 
         return $this->render('product/index.html.twig', [
             'products' => $pagination,

@@ -12,6 +12,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Shop
 {
+    const NUMBER_OF_ITEMS = 10;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

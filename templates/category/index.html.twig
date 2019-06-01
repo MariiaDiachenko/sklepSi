@@ -5,6 +5,9 @@
 {% block body %}
     <h1>Category index</h1>
 
+    <div class="navigation text-center">
+      {{ knp_pagination_render(categories) }}
+    </div>
     <table class="table">
         <thead>
             <tr>
@@ -30,6 +33,9 @@
         {% endfor %}
         </tbody>
     </table>
+    <div class="navigation text-center">
+      {{ knp_pagination_render(categories) }}
+    </div>
 
     <a href="{{ path('category_new') }}">Create new</a>
 {% endblock %}
