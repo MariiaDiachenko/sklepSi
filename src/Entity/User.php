@@ -27,6 +27,11 @@ use Doctrine\ORM\PersistentCollection;
  */
 class User implements UserInterface
 {
+    /*
+    * Number of items per page
+    */
+    const NUMBER_OF_ITEMS = 10;
+
       /**
      * Role user.
      *
@@ -234,7 +239,7 @@ class User implements UserInterface
     {
         $roles = [];
         foreach ($this->roles as $role) {
-            $roles[] = $role;
+            $roles[] = $role->getRole();
         }
         $roles[] = static::ROLE_USER;
         return array_unique($roles);

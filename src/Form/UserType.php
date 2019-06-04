@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Entity\Role;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -20,7 +21,7 @@ class UserType extends AbstractType
             ->add('username', TextType::class)
             ->add('password', PasswordType::class)
             ->add('email', EmailType::class)
-            ->add('phone', TextType::class)
+            ->add('phone', TextType::class);
         ;
     }
 

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Role;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -11,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @Route("/user")
@@ -20,10 +22,16 @@ class UserController extends Controller
     /**
      * @Route("/", name="user_index", methods={"GET"})
      */
-    public function index(UserRepository $userRepository): Response
+    public function index(Request $request, UserRepository $userRepository, PaginatorInterface $paginator): Response
     {
+        $pagination = $paginator->paginate(
+           $userRepository->queryAll(),
+           $request->query->getInt('page', 1),
+           User::NUMBER_OF_ITEMS
+       );
+
         return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
+            'users' => $pagination,
         ]);
     }
 
@@ -70,7 +78,6 @@ class UserController extends Controller
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
@@ -83,6 +90,26 @@ class UserController extends Controller
             'user' => $user,
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/{id}/addAdmin", name="user_addAdmin", methods={"GET"})
+     */
+    public function addAdmin(Request $request, User $user): Response
+    {
+      if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+        $role = new Role();
+        $role->setRole(USER::ROLE_ADMIN);
+        $role->setUser($user);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($role);
+        $em->flush();
+      }
+
+      return $this->redirectToRoute('user_index', [
+          'id' => $user->getId(),
+      ]);
     }
 
     /**
