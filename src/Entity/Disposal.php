@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,6 +32,22 @@ class Disposal
      * @ORM\Column(type="datetime")
      */
     private $timestamp;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\DisposalDetails", mappedBy="disposal")
+     */
+    private $disposal_details;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Shop", inversedBy="disposal", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $shop;
+
+    public function __construct()
+    {
+        $this->disposal_details = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -68,6 +86,49 @@ class Disposal
     public function setTimestamp(\DateTimeInterface $timestamp): self
     {
         $this->timestamp = $timestamp;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|DisposalDetails[]
+     */
+    public function getDisposalDetails(): Collection
+    {
+        return $this->disposal_details;
+    }
+
+    public function addDisposalDetail(DisposalDetails $disposalDetail): self
+    {
+        if (!$this->disposal_details->contains($disposalDetail)) {
+            $this->disposal_details[] = $disposalDetail;
+            $disposalDetail->setDisposal($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDisposalDetail(DisposalDetails $disposalDetail): self
+    {
+        if ($this->disposal_details->contains($disposalDetail)) {
+            $this->disposal_details->removeElement($disposalDetail);
+            // set the owning side to null (unless already changed)
+            if ($disposalDetail->getDisposal() === $this) {
+                $disposalDetail->setDisposal(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getShop(): ?Shop
+    {
+        return $this->shop;
+    }
+
+    public function setShop(Shop $shop): self
+    {
+        $this->shop = $shop;
 
         return $this;
     }

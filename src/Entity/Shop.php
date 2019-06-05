@@ -55,6 +55,11 @@ class Shop
      */
     private $products;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Disposal", mappedBy="shop", cascade={"persist", "remove"})
+     */
+    private $disposal;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -144,6 +149,23 @@ class Shop
             if ($product->getShop() === $this) {
                 $product->setShop(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getDisposal(): ?Disposal
+    {
+        return $this->disposal;
+    }
+
+    public function setDisposal(Disposal $disposal): self
+    {
+        $this->disposal = $disposal;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $disposal->getShop()) {
+            $disposal->setShop($this);
         }
 
         return $this;

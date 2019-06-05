@@ -26,6 +26,11 @@ class DisposalDetails
      */
     private $quantity;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Disposal", inversedBy="disposal_details")
+     */
+    private $disposal;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +56,18 @@ class DisposalDetails
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getDisposal(): ?Disposal
+    {
+        return $this->disposal;
+    }
+
+    public function setDisposal(?Disposal $disposal): self
+    {
+        $this->disposal = $disposal;
 
         return $this;
     }
