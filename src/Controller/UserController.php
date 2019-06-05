@@ -105,6 +105,8 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->persist($role);
         $em->flush();
+
+        $this->addFlash('success', 'message.admin_added');
       }
 
       return $this->redirectToRoute('user_index', [
