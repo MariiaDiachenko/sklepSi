@@ -34,7 +34,7 @@ class Disposal
     private $timestamp;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\DisposalDetails", mappedBy="disposal" cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\DisposalDetails", mappedBy="disposal", cascade={"remove"})
      */
     private $disposal_details;
 

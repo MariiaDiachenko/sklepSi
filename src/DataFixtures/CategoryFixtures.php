@@ -12,7 +12,7 @@ class CategoryFixtures extends AbstractBaseFixtures
     {
       for ($i=0; $i < 10; $i++) {
         $category = new Category();
-        $category->setName($this->faker->name());
+        $category->setName($this->faker->unique()->word());
         $this->manager->persist($category);
       }
       $this->manager->flush();
