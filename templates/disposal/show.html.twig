@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Disposal{% endblock %}
+
+{% block body %}
+    <h1>Disposal</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ disposal.id }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ disposal.address }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ disposal.status }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ disposal.createdAt ? disposal.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ disposal.updatedAt ? disposal.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('disposal_index') }}">back to list</a>
+
+    <a href="{{ path('disposal_edit', {'id': disposal.id}) }}">edit</a>
+
+    {{ include('disposal/_delete_form.html.twig') }}
+{% endblock %}

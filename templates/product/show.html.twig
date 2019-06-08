@@ -35,6 +35,10 @@
                 <th>IsNew</th>
                 <td>{{ product.isNew ? 'Yes' : 'No' }}</td>
             </tr>
+            <tr>
+                <th>category</th>
+                <td>{{ product.category ? product.category.name : 'No' }}</td>
+            </tr>
         </tbody>
     </table>
 

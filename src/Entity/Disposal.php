@@ -5,6 +5,8 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DisposalRepository")
@@ -29,20 +31,38 @@ class Disposal
     private $status;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private $timestamp;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\DisposalDetails", mappedBy="disposal", cascade={"remove"})
      */
     private $disposal_details;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Shop", inversedBy="disposal", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @Gedmo\Timestampable(on="create")
+     *
+     * @ORM\Column(type="datetime")
+     *
+     * @Assert\DateTime
+     */
+    private $createdAt;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     *
+     * @ORM\Column(type="datetime")
+     *
+     * @Assert\DateTime
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Shop", inversedBy="disposal", cascade={"persist"})
      */
     private $shop;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="disposals")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function __construct()
     {
@@ -126,9 +146,21 @@ class Disposal
         return $this->shop;
     }
 
-    public function setShop(Shop $shop): self
+    public function setShop(?Shop $shop): self
     {
         $this->shop = $shop;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

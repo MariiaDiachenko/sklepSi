@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -132,9 +133,15 @@ class User implements UserInterface
      */
     private $updatedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Disposal", mappedBy="user")
+     */
+    private $disposals;
+
     public function __construct()
     {
         $this->roles = new ArrayCollection();
+        $this->disposals = new ArrayCollection();
     }
 
     /**
@@ -288,6 +295,37 @@ class User implements UserInterface
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Disposal[]
+     */
+    public function getDisposals(): Collection
+    {
+        return $this->disposals;
+    }
+
+    public function addDisposal(Disposal $disposal): self
+    {
+        if (!$this->disposals->contains($disposal)) {
+            $this->disposals[] = $disposal;
+            $disposal->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDisposal(Disposal $disposal): self
+    {
+        if ($this->disposals->contains($disposal)) {
+            $this->disposals->removeElement($disposal);
+            // set the owning side to null (unless already changed)
+            if ($disposal->getUser() === $this) {
+                $disposal->setUser(null);
+            }
+        }
 
         return $this;
     }

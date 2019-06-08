@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Disposal index{% endblock %}
+
+{% block body %}
+    <h1>Disposal index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Address</th>
+                <th>Status</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for disposal in disposals %}
+            <tr>
+                <td>{{ disposal.id }}</td>
+                <td>{{ disposal.address }}</td>
+                <td>{{ disposal.status }}</td>
+                <td>{{ disposal.createdAt ? disposal.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ disposal.updatedAt ? disposal.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('disposal_show', {'id': disposal.id}) }}">show</a>
+                    <a href="{{ path('disposal_edit', {'id': disposal.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('disposal_new') }}">Create new</a>
+{% endblock %}

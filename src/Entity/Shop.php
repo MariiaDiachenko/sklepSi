@@ -60,6 +60,7 @@ class Shop
      */
     private $disposal;
 
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -159,13 +160,14 @@ class Shop
         return $this->disposal;
     }
 
-    public function setDisposal(Disposal $disposal): self
+    public function setDisposal(?Disposal $disposal): self
     {
         $this->disposal = $disposal;
 
-        // set the owning side of the relation if necessary
-        if ($this !== $disposal->getShop()) {
-            $disposal->setShop($this);
+        // set (or unset) the owning side of the relation if necessary
+        $newShop = $disposal === null ? null : $this;
+        if ($newShop !== $disposal->getShop()) {
+            $disposal->setShop($newShop);
         }
 
         return $this;

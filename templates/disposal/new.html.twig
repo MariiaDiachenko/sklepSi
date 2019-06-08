@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Disposal{% endblock %}
+
+{% block body %}
+    <h1>Create new Disposal</h1>
+
+    {{ include('disposal/_form.html.twig') }}
+
+    <a href="{{ path('disposal_index') }}">back to list</a>
+{% endblock %}
