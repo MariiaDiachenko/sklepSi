@@ -4,10 +4,13 @@
   <div class="card h-100">
     <div class="row pl-3">
       <a href="{{ path('product_show', {'id': product.id}) }}">
-        <span class="btn btn-success m-2">show</span>
+        <span class="btn btn-success m-2">{{"button.show" | trans}}</span>
       </a>
       <a href="{{ path('product_edit', {'id': product.id}) }}">
-        <span class="btn btn-success m-2">edit</span>
+        <span class="btn btn-success m-2">{{"button.edit" | trans}}</span>
+      </a>
+      <a href="{{ path('basket_add', {'id' : product.id}) }}">
+        <span class="btn btn-success m-2">{{"button.add_to_basket" | trans}}</span>
       </a>
     </div>
     <a href="#">

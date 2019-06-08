@@ -1,0 +1,21 @@
+<div class="basketWidget">
+    <header>
+      <h2>Basket</h2>
+    </header>
+    <div class="basketWidget__products">
+      {% for product in basket_products %}
+      <div class="basketWidget__product__wrapper">
+        <div class="basketWidget__product">
+          <div class="product__name">{{product.name}}</div>
+          <div class="product__price">{{product.price|slice(0,-2) ~ '.' ~ product.price|slice(-2) ~ ' zł'}}</div>
+        </div>
+        <div class="product__actions">
+          <a href="{{ path('basket_remove', {'id' : product.id}) }}">{{"button.remove_from_basket" | trans}}</a>
+        </div>
+      </div>
+      {% endfor %}
+      <div class="products__actions">
+        <a href="{{ path('basket_clear') }}">{{"button.clear_basket" | trans}}</a>
+      </div>
+    </div>
+</div>

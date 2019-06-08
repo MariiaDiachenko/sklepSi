@@ -11,6 +11,7 @@
     <body class="mt-5">
         {% include 'default/_header.html.twig' %}
         {% include 'default/_flash_messages.html.twig' %}
+        {{ render(controller('App\\Controller\\BasketController:widget')) }}
 
         <!-- Page Content -->
         <div class="container">

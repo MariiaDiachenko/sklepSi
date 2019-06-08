@@ -31,6 +31,11 @@ class DisposalDetails
      */
     private $disposal;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $product_name;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,6 +73,18 @@ class DisposalDetails
     public function setDisposal(?Disposal $disposal): self
     {
         $this->disposal = $disposal;
+
+        return $this;
+    }
+
+    public function getProductName(): ?string
+    {
+        return $this->product_name;
+    }
+
+    public function setProductName(string $product_name): self
+    {
+        $this->product_name = $product_name;
 
         return $this;
     }
