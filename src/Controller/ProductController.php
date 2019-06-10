@@ -74,10 +74,20 @@ class ProductController extends Controller
      */
     public function edit(Request $request, Product $product): Response
     {
+        $img = $product->getImg();
+        $product->setImg(null);
+
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $formImg = $product->getImg();
+            if ($formImg !== null) {
+              $product->setImg($formImg);
+            } else {
+              $product->setImg($img);
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('product_index', [
