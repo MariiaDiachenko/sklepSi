@@ -56,9 +56,11 @@ class Shop
     private $products;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Disposal", mappedBy="shop", cascade={"persist", "remove"})
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Regex("/^\+?[\d]+$/")
+     * @Assert\Length(min=9, max=18)
      */
-    private $disposal;
+    private $bankAccount;
 
 
     public function __construct()
@@ -155,20 +157,14 @@ class Shop
         return $this;
     }
 
-    public function getDisposal(): ?Disposal
+    public function getBankAccount(): ?string
     {
-        return $this->disposal;
+        return $this->bankAccount;
     }
 
-    public function setDisposal(?Disposal $disposal): self
+    public function setBankAccount(string $bankAccount): self
     {
-        $this->disposal = $disposal;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newShop = $disposal === null ? null : $this;
-        if ($newShop !== $disposal->getShop()) {
-            $disposal->setShop($newShop);
-        }
+        $this->bankAccount = $bankAccount;
 
         return $this;
     }

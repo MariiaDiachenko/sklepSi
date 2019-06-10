@@ -13,6 +13,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Disposal
 {
+    const STATUS_WAITING_FOR_PAYMENT = 'WAITING_FOR_PAYMENT';
+    const STATUS_PAYED = 'PAYED';
+    const STATUS_SENDED = 'SENDED';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -31,7 +35,7 @@ class Disposal
     private $status;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\DisposalDetails", mappedBy="disposal", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\DisposalDetails", mappedBy="disposal", cascade={"persist", "remove"})
      */
     private $disposal_details;
 
@@ -53,10 +57,6 @@ class Disposal
      */
     private $updatedAt;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Shop", inversedBy="disposal", cascade={"persist"})
-     */
-    private $shop;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="disposals")
@@ -141,18 +141,6 @@ class Disposal
         return $this;
     }
 
-    public function getShop(): ?Shop
-    {
-        return $this->shop;
-    }
-
-    public function setShop(?Shop $shop): self
-    {
-        $this->shop = $shop;
-
-        return $this;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -161,6 +149,30 @@ class Disposal
     public function setUser(User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

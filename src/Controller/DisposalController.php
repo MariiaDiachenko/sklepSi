@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Disposal;
 use App\Form\DisposalType;
 use App\Repository\DisposalRepository;
+use App\Repository\ShopRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,6 +47,24 @@ class DisposalController extends Controller
             'disposal' => $disposal,
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/{id}/{user}", name="disposal_user_show", methods={"GET"})
+     */
+    public function userShow(Disposal $disposal, ShopRepository $shopRepository, $user): Response
+    {
+      $userId = $user;
+      $user = $this->getUser();
+      if ((int)$userId !== $user->getId()) {
+        $this->addFlash('error','message.you_cant_view_this_disposal');
+        $this->redirectToRoute('product_index');
+      }
+
+      return $this->render('disposal/user_show.html.twig', [
+          'shop' => $shopRepository->findAll()[0],
+          'disposal' => $disposal,
+      ]);
     }
 
     /**

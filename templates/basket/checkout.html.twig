@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block body %}
+    <h1>Product checkout</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Img</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in basket_products %}
+            <tr>
+                <td><img class="card-img-top" src="{{ asset( 'uploads/imgs/' ~ product[0].img) }}" alt=""></td>
+                <td>{{ product[0].name }}</td>
+                <td>{{product[0].price|slice(0,-2) ~ '.' ~ product[0].price|slice(-2) ~ ' zł'}}</td>
+                <td>{{product[1]}}</td>
+                <td>
+                    <a href="{{ path('basket_remove', {'id' : product[0].id}) }}">{{"button.remove_from_basket" | trans}}</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <h1>{{'header.yourDisposal'|trans}}</h1>
+        <div class="disposal__question__form">
+          <h2 class="question">{{'header.on_what_address_you_like_to_send_package' | trans}}</h2>
+          {{ form_start(form) }}
+              {{ form_widget(form) }}
+              <button class="btn">{{'button.i_order_and_pay' | trans}}</button>
+          {{ form_end(form) }}
+        </div>
+{% endblock %}

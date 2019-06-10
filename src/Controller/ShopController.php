@@ -35,13 +35,18 @@ class ShopController extends Controller
     /**
      * @Route("/new", name="shop_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, ShopRepository $shopRepository): Response
     {
         $shop = new Shop();
         $form = $this->createForm(ShopType::class, $shop);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if (!$shopRepository->findAll()) {
+              $this->addFlash('error', 'you cant have more than one shop');
+              return $this->redirectToRoute('shop_index');
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($shop);
             $entityManager->flush();
