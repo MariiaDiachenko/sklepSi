@@ -77,9 +77,16 @@ class BasketController extends Controller
         return $this->redirectToRoute('disposal_user_show', ['id' => $disposal->getId(), 'user' => $user->getId()]);
       }
 
+      $totalPrice = 0;
+      foreach ($basketProducts as $productQty) {
+        $localPrice = $productQty[0]->getPrice() * $productQty[1];
+        $totalPrice += $localPrice;
+      }
+
       return $this->render('basket/checkout.html.twig', [
         'form' => $form->createView(),
         'basket_products' => $basketProducts,
+        'total_price' => $totalPrice
       ]);
     }
 

@@ -34,6 +34,11 @@
         </tbody>
     </table>
 
+    <div class="total_price">
+
+      {{ 'total_price_is' | trans}} {{total_price|slice(0,-2) ~ '.' ~ total_price|slice(-2) ~ ' zł'}}
+    </div>
+
     <h1>{{'header.yourDisposal'|trans}}</h1>
         <div class="disposal__question__form">
           <h2 class="question">{{'header.on_what_address_you_like_to_send_package' | trans}}</h2>
