@@ -16,6 +16,7 @@ class Disposal
     const STATUS_WAITING_FOR_PAYMENT = 'WAITING_FOR_PAYMENT';
     const STATUS_PAYED = 'PAYED';
     const STATUS_SENDED = 'SENDED';
+    const NUMBER_OF_ITEMS = 10;
 
     /**
      * @ORM\Id()

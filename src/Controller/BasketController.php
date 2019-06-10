@@ -72,6 +72,8 @@ class BasketController extends Controller
         $entityManager->persist($disposal);
         $entityManager->flush();
 
+        $this->addFlash('success', 'message.roder_successfully_saved');
+
         return $this->redirectToRoute('disposal_user_show', ['id' => $disposal->getId(), 'user' => $user->getId()]);
       }
 

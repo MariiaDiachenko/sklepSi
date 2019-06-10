@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @Route("/disposal")
@@ -19,10 +20,16 @@ class DisposalController extends Controller
     /**
      * @Route("/", name="disposal_index", methods={"GET"})
      */
-    public function index(DisposalRepository $disposalRepository): Response
+    public function index(DisposalRepository $disposalRepository, PaginatorInterface $paginator, Request $request): Response
     {
+      $pagination = $paginator->paginate(
+         $disposalRepository->queryAll(),
+         $request->query->getInt('page', 1),
+         Disposal::NUMBER_OF_ITEMS
+     );
+
         return $this->render('disposal/index.html.twig', [
-            'disposals' => $disposalRepository->findAll(),
+            'disposals' => $pagination,
         ]);
     }
 
@@ -50,7 +57,7 @@ class DisposalController extends Controller
     }
 
     /**
-     * @Route("/{id}/{user}", name="disposal_user_show", methods={"GET"})
+     * @Route("/{id}/{user}", name="disposal_user_show", requirements={"id"="\d+", "user"="\d+"}, methods={"GET"})
      */
     public function userShow(Disposal $disposal, ShopRepository $shopRepository, $user): Response
     {

@@ -5,6 +5,10 @@
 {% block body %}
     <h1>Disposal index</h1>
 
+    <div class="navigation text-center">
+      {{ knp_pagination_render(disposals) }}
+    </div>
+
     <table class="table">
         <thead>
             <tr>
@@ -36,6 +40,10 @@
         {% endfor %}
         </tbody>
     </table>
+
+    <div class="navigation text-center">
+      {{ knp_pagination_render(disposals) }}
+    </div>
 
     <a href="{{ path('disposal_new') }}">Create new</a>
 {% endblock %}

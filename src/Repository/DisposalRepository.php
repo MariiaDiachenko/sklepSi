@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Disposal;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Disposal|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +18,13 @@ class DisposalRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Disposal::class);
+    }
+
+    public function queryAll(): QueryBuilder
+    {
+      $builder = $this->createQueryBuilder('d');
+
+      return $builder;
     }
 
     // /**
