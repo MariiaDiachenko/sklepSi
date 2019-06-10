@@ -7,7 +7,7 @@
 
     {{ include('disposal/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('disposal_index') }}">back to list</a>
+    <a href="{{ path('disposal_index') }}">{{ 'button.back_to_list' | trans }}</a>
 
     {{ include('disposal/_delete_form.html.twig') }}
 {% endblock %}

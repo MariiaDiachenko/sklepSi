@@ -1,52 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User{% endblock %}
+{% block title %}{{ 'title.user' | trans }}{% endblock %}
 
 {% block body %}
-    <h1>User</h1>
+    <h1>{{ 'header.user' | trans }}</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>{{ 'id' | trans }}</th>
                 <td>{{ user.id }}</td>
             </tr>
             <tr>
-                <th>Name</th>
+                <th> {{ 'name' | trans }}</th>
                 <td>{{ user.name }}</td>
             </tr>
             <tr>
-                <th>Surname</th>
+                <th> {{'surname' | trans}} </th>
                 <td>{{ user.surname }}</td>
             </tr>
             <tr>
-                <th>Username</th>
+                <th>{{ 'username' | trans}}</th>
                 <td>{{ user.username }}</td>
             </tr>
             <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
+                <th>{{ 'email' | trans}}</th>
                 <td>{{ user.email }}</td>
             </tr>
             <tr>
-                <th>Phone</th>
+                <th>{{ 'phone' | trans}}</th>
                 <td>{{ user.phone }}</td>
             </tr>
             <tr>
-                <th>CreatedAt</th>
+                <th>{{ 'created_at' | trans}}</th>
                 <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>UpdatedAt</th>
+                <th>{{ 'updated_at' | trans}}</th>
                 <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('user_index') }}">back to list</a>
+    <a href="{{ path('user_index') }}">{{ 'button.back_to_list' | trans }}</a>
 
     <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
 

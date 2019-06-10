@@ -1,7 +1,4 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-    {% if is_granted('ROLE_ADMIN') %}
-      <a href="{{ path('user_addAdmin', {'id':user.id}) }}">Add admin access to user</a>
-    {% endif %}
+    <button class="btn">{{ 'button.save' | trans }}</button>
 {{ form_end(form) }}

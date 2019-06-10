@@ -76,8 +76,11 @@ class UserController extends Controller
      */
     public function edit(Request $request, User $user): Response
     {
-        if ($this->getUser() == null || $user->getUsername() !== $this->getUser()->getUsername()) {
-          return $this->redirectToRoute('front_page');
+
+        if(!$this->isGranted(USER::ROLE_ADMIN)){
+          if ($this->getUser() == null || $user->getUsername() !== $this->getUser()->getUsername()) {
+            return $this->redirectToRoute('front_page');
+          }
         }
 
         $form = $this->createForm(UserType::class, $user);

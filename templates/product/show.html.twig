@@ -1,50 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Product{% endblock %}
+{% block title %}{{'title.product' | trans}}{% endblock %}
 
 {% block body %}
-    <h1>Product</h1>
+    <div class="title">
+      <h1>{{product.name}}</h1>
+      <span class="badge badge__new">{{ product.isNew ? 'product.new' : '' | trans }}</span>
+      <span class="badge badge__recommended">{{ product.isRecommended ? 'product.recommended' : '' | trans }}</span>
+    <div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ product.id }}</td>
-            </tr>
-            <tr>
-                <th>Img</th>
-                <td>{{ product.img }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ product.name }}</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>{{ product.price }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ product.description }}</td>
-            </tr>
-            <tr>
-                <th>IsRecommended</th>
-                <td>{{ product.isRecommended ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>IsNew</th>
-                <td>{{ product.isNew ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>category</th>
-                <td>{{ product.category ? product.category.name : 'No' }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="product">
+      <div class="product__img">
+        <img class="card-img-top" src="{{ asset( 'uploads/imgs/' ~ product.img) }}" alt="">
+      </div>
+      <div class="product__categry">
+        <td>{{ product.category ? product.category.name : '' }}</td>
+      </div>
+      <div class="product__price">
+        {% include 'product/_product_price.html.twig' %}
+      </div>
+      <div class="product__description">
+        {{product.description}}
+      </div>
+    </div>
 
-    <a href="{{ path('product_index') }}">back to list</a>
+    <a href="{{ path('product_index') }}">{{'button.back_to_list' | trans}}</a>
 
-    <a href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
+    <a href="{{ path('product_edit', {'id': product.id}) }}">{{'button.edit' | trans}}</a>
 
-    {{ include('product/_delete_form.html.twig') }}
+    {% if is_granted('ROLE_ADMIN') %}
+      {{ include('product/_delete_form.html.twig') }}
+    {% endif %}
 {% endblock %}

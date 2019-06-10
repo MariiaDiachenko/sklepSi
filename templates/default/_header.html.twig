@@ -1,26 +1,40 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
   <div class="container">
-    <a class="navbar-brand" href="#">Start Bootstrap</a>
+    <a class="navbar-brand" href="{{ path('product_index') }}"> {{ 'menu.shop_title' | trans }} </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home
-            <span class="sr-only">(current)</span>
-          </a>
+          <a class="nav-link" href="{{ path('product_index') }}">{{ 'menu.home' | trans }}</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ path('security_login') }}">{{ 'menu.login' | trans }}</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Services</a>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ path('user_new') }}">{{ 'menu.register' | trans }}</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
-        </li>
+        {% if is_granted('ROLE_USER') %}
+          <li class="nav-item active">
+            <a class="nav-link" href="{{ path('security_logout') }}">{{ 'menu.security_logout' | trans }}</a>
+          </li>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('disposal_index') }}">{{ 'menu.disposal' | trans }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('user_index') }}">{{ 'menu.users' | trans }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('shop_index') }}">{{ 'menu.shop' | trans }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('category_index') }}">{{ 'menu.category' | trans }}</a>
+          </li>
+        {% endif %}
       </ul>
     </div>
   </div>
