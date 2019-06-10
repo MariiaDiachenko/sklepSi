@@ -106,4 +106,13 @@ class CategoryController extends Controller
 
         return $this->redirectToRoute('category_index');
     }
+
+    public function widget(CategoryRepository $categoryRepository)
+    {
+        $categories = $categoryRepository->findBy([], null, 10);
+        return $this->render('category/widget.html.twig', [
+          'categories' => $categories,
+        ]);
+    }
+
 }

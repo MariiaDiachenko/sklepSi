@@ -7,7 +7,10 @@
             {{ knp_pagination_render(products) }}
         </div>
         <div class="row">
-          <a href="{{ path('product_new') }}">Create new</a>
+          {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('product_new') }}">{{ 'button.createNew' | trans }}</a>
+          {% endif %}
+
           {% for product in products %}
               {% include 'product/_single_product.html.twig' %}
           {% else %}
