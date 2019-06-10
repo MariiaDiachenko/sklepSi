@@ -64,7 +64,7 @@ class DisposalController extends Controller
       $userId = $user;
       $user = $this->getUser();
       if ((int)$userId !== $user->getId()) {
-        $this->addFlash('error','message.you_cant_view_this_disposal');
+        $this->addFlash('danger','message.you_cant_view_this_disposal');
         $this->redirectToRoute('product_index');
       }
 

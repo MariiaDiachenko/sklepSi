@@ -22,13 +22,13 @@
                 <td>{{ category.id }}</td>
                 <td>{{ category.name }}</td>
                 <td>
-                    <a href="{{ path('category_show', {'id': category.id}) }}">show</a>
-                    <a href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
+                    <a href="{{ path('category_show', {'id': category.id}) }}">{{ 'button.show' | trans }}</a>
+                    <a href="{{ path('category_edit', {'id': category.id}) }}">{{ 'button.edit' | trans }}</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">{{ 'no_records_found' | trans }}</td>
             </tr>
         {% endfor %}
         </tbody>
@@ -37,5 +37,5 @@
       {{ knp_pagination_render(categories) }}
     </div>
 
-    <a href="{{ path('category_new') }}">Create new</a>
+    <a href="{{ path('category_new') }}">{{'button.create_new' | trans }}</a>
 {% endblock %}

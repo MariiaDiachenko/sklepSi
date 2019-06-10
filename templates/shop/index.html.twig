@@ -27,13 +27,13 @@
                 <td>{{ shop.phone }}</td>
                 <td>{{ shop.email }}</td>
                 <td>
-                    <a href="{{ path('shop_show', {'id': shop.id}) }}">show</a>
-                    <a href="{{ path('shop_edit', {'id': shop.id}) }}">edit</a>
+                    <a href="{{ path('shop_show', {'id': shop.id}) }}">{{ 'button.show' | trans }}</a>
+                    <a href="{{ path('shop_edit', {'id': shop.id}) }}">{{ 'button.edit' | trans }}</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="6">{{ 'no_records_found' | trans }}</td>
             </tr>
         {% endfor %}
         </tbody>
@@ -41,5 +41,5 @@
     <div class="navigation text-center">
       {{ knp_pagination_render(shops) }}
     </div>
-    <a href="{{ path('shop_new') }}">Create new</a>
+    <a href="{{ path('shop_new') }}">{{'button.create_new' | trans }}</a>
 {% endblock %}

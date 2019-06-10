@@ -1,6 +1,6 @@
 <div class="basketWidget">
     <header>
-      <h2>Basket</h2>
+      <h2>{{ 'header.basket' | trans }}</h2>
     </header>
     <div class="basketWidget__products">
       {% for product in basket_products %}
@@ -17,6 +17,7 @@
       {% endfor %}
       <div class="products__actions">
         <a href="{{ path('basket_clear') }}">{{"button.clear_basket" | trans}}</a>
+        <a href="{{ path('basket_checkout') }}">{{"button.basket_checkout" | trans}}</a>
       </div>
     </div>
 </div>

@@ -29,13 +29,13 @@
                 <td>{{ disposal.createdAt ? disposal.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ disposal.updatedAt ? disposal.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('disposal_show', {'id': disposal.id}) }}">show</a>
-                    <a href="{{ path('disposal_edit', {'id': disposal.id}) }}">edit</a>
+                    <a href="{{ path('disposal_show', {'id': disposal.id}) }}">{{ 'button.show' | trans }}</a>
+                    <a href="{{ path('disposal_edit', {'id': disposal.id}) }}">{{ 'button.edit' | trans }}</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="6">{{ 'no_records_found' | trans }}</td>
             </tr>
         {% endfor %}
         </tbody>
@@ -45,5 +45,5 @@
       {{ knp_pagination_render(disposals) }}
     </div>
 
-    <a href="{{ path('disposal_new') }}">Create new</a>
+    <a href="{{ path('disposal_new') }}">{{'button.create_new' | trans }}</a>
 {% endblock %}

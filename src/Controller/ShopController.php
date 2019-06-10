@@ -42,8 +42,8 @@ class ShopController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if (!$shopRepository->findAll()) {
-              $this->addFlash('error', 'you cant have more than one shop');
+            if ($shopRepository->findAll()) {
+              $this->addFlash('danger', 'you cant have more than one shop');
               return $this->redirectToRoute('shop_index');
             }
 

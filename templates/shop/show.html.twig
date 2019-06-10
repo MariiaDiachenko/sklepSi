@@ -32,7 +32,7 @@
 
     <a href="{{ path('shop_index') }}">{{ 'button.back_to_list' | trans }}</a>
 
-    <a href="{{ path('shop_edit', {'id': shop.id}) }}">edit</a>
+    <a href="{{ path('shop_edit', {'id': shop.id}) }}">{{ 'button.edit' | trans }}</a>
 
     {{ include('shop/_delete_form.html.twig') }}
 {% endblock %}

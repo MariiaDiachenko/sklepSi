@@ -20,7 +20,7 @@
 
     <a href="{{ path('category_index') }}">{{ 'button.back_to_list' | trans }}</a>
 
-    <a href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
+    <a href="{{ path('category_edit', {'id': category.id}) }}">{{ 'button.edit' | trans }}</a>
 
     {{ include('category/_delete_form.html.twig') }}
 {% endblock %}

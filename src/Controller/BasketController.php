@@ -97,7 +97,7 @@ class BasketController extends Controller
 
          $this->addFlash('success', 'message.product_added_to_basket');
        }  else {
-         $this->addFlash('error', 'message.unable_to_add_this_product_to_basket');
+         $this->addFlash('danger', 'message.unable_to_add_this_product_to_basket');
        }
 
        return $this->redirect($this->getRefererUrl($request));

@@ -33,13 +33,13 @@
                 <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+                    <a href="{{ path('user_show', {'id': user.id}) }}">{{ 'button.show' | trans }}</a>
+                    <a href="{{ path('user_edit', {'id': user.id}) }}">{{ 'button.edit' | trans }}</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="10">no records found</td>
+                <td colspan="10">{{ 'no_records_found' | trans }}</td>
             </tr>
         {% endfor %}
         </tbody>
@@ -47,5 +47,5 @@
     <div class="navigation text-center">
       {{ knp_pagination_render(users) }}
     </div>
-    <a href="{{ path('user_new') }}">Create new</a>
+    <a href="{{ path('user_new') }}">{{'button.create_new' | trans }}</a>
 {% endblock %}

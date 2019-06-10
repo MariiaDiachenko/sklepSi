@@ -38,7 +38,7 @@ class Disposal
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\DisposalDetails", mappedBy="disposal", cascade={"persist", "remove"})
      */
-    private $disposal_details;
+    private $disposalDetails;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -116,13 +116,13 @@ class Disposal
      */
     public function getDisposalDetails(): Collection
     {
-        return $this->disposal_details;
+        return $this->disposalDetails;
     }
 
     public function addDisposalDetail(DisposalDetails $disposalDetail): self
     {
-        if (!$this->disposal_details->contains($disposalDetail)) {
-            $this->disposal_details[] = $disposalDetail;
+        if (!$this->disposalDetails->contains($disposalDetail)) {
+            $this->disposalDetails[] = $disposalDetail;
             $disposalDetail->setDisposal($this);
         }
 
@@ -131,8 +131,8 @@ class Disposal
 
     public function removeDisposalDetail(DisposalDetails $disposalDetail): self
     {
-        if ($this->disposal_details->contains($disposalDetail)) {
-            $this->disposal_details->removeElement($disposalDetail);
+        if ($this->disposalDetails->contains($disposalDetail)) {
+            $this->disposalDetails->removeElement($disposalDetail);
             // set the owning side to null (unless already changed)
             if ($disposalDetail->getDisposal() === $this) {
                 $disposalDetail->setDisposal(null);
