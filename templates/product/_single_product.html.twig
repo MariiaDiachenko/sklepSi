@@ -3,11 +3,13 @@
 <div class="col-lg-4 col-md-6 mb-4">
   <div class="card h-100">
     <div class="row pl-3">
+      {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('product_edit', {'id': product.id}) }}">
+          <span class="btn btn-success m-2">{{"button.edit" | trans}}</span>
+        </a>
+      {% endif %}
       <a href="{{ path('product_show', {'id': product.id}) }}">
         <span class="btn btn-success m-2">{{"button.show" | trans}}</span>
-      </a>
-      <a href="{{ path('product_edit', {'id': product.id}) }}">
-        <span class="btn btn-success m-2">{{"button.edit" | trans}}</span>
       </a>
       <a href="{{ path('basket_add', {'id' : product.id}) }}">
         <span class="btn btn-success m-2">{{"button.add_to_basket" | trans}}</span>

@@ -13,13 +13,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
-/**
- * @Route("/user")
- */
 class UserController extends Controller
 {
     /**
-     * @Route("/", name="user_index", methods={"GET"})
+     * @Route("/admin/user/", name="user_index", methods={"GET"})
      *
      * @param Request            $request
      * @param UserRepository     $userRepository
@@ -41,7 +38,7 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/new", name="user_new", methods={"GET","POST"})
+     * @Route("/user/new", name="user_new", methods={"GET","POST"})
      *
      * @param Request                      $request
      * @param UserPasswordEncoderInterface $encoder
@@ -72,7 +69,7 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="user_show", methods={"GET"})
+     * @Route("/user/{id}", name="user_show", methods={"GET"})
      *
      * @param User $user
      *
@@ -80,13 +77,19 @@ class UserController extends Controller
      */
     public function show(User $user): Response
     {
+      if (!$this->isGranted(USER::ROLE_ADMIN)) {
+          if (null == $this->getUser() || $user->getUsername() !== $this->getUser()->getUsername()) {
+              return $this->redirectToRoute('front_page');
+          }
+      }
+
         return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);
     }
 
     /**
-     * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
+     * @Route("/user/{id}/edit", name="user_edit", methods={"GET","POST"})
      *
      * @param Request $request
      * @param User    $user
@@ -118,7 +121,7 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/{id}/addAdmin", name="user_addAdmin", methods={"GET"})
+     * @Route("/admin/user/{id}/addAdmin", name="user_addAdmin", methods={"GET"})
      *
      * @param Request $request
      * @param User    $user
@@ -145,7 +148,7 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="user_delete", methods={"DELETE"})
+     * @Route("/user/{id}", name="user_delete", methods={"DELETE"})
      *
      * @param Request $request
      * @param User    $user
@@ -154,7 +157,12 @@ class UserController extends Controller
      */
     public function delete(Request $request, User $user): Response
     {
-        $this->denyAccessUnlessGranted(['ROLE_EDIT', 'ROLE_ADMIN']);
+        if (!$this->isGranted(USER::ROLE_ADMIN)) {
+            if (null == $this->getUser() || $user->getUsername() !== $this->getUser()->getUsername()) {
+                return $this->redirectToRoute('front_page');
+            }
+        }
+
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);

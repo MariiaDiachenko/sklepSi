@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
 
 /**
- * @Route("/shop")
+ * @Route("/admin/shop")
  */
 class ShopController extends Controller
 {

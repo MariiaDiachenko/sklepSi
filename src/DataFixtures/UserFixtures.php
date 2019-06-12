@@ -33,18 +33,29 @@ class UserFixtures extends AbstractBaseFixtures
     */
     public function loadData(ObjectManager $manager): void
     {
-        $user = new User();
+        $admin = new User();
 
-        $user->setUsername('admin');
+        $admin->setUsername('admin');
+        $admin->setPassword($this->passwordEncoder->encodePassword(
+            $admin,
+            'admin'
+        ));
+        $admin->setName($this->faker->unique()->firstName);
+        $admin->setSurname($this->faker->unique()->lastName);
+        $admin->setEmail($this->faker->unique()->safeEmail);
+        $admin->setPhone($this->faker->unique()->e164PhoneNumber);
+        $this->manager->persist($admin);
+
+        $user = new User();
+        $user->setUsername('user');
         $user->setPassword($this->passwordEncoder->encodePassword(
             $user,
-            'admin'
+            'user'
         ));
         $user->setName($this->faker->unique()->firstName);
         $user->setSurname($this->faker->unique()->lastName);
         $user->setEmail($this->faker->unique()->safeEmail);
         $user->setPhone($this->faker->unique()->e164PhoneNumber);
-
         $this->manager->persist($user);
 
         for ($i = 0; $i < 10; ++$i) {

@@ -4,16 +4,18 @@
     </header>
     <div class="basketWidget__products">
       {% for product in basket_products %}
-      <div class="basketWidget__product__wrapper">
-        <div class="basketWidget__product">
-          <div class="product__name">{{product[0].name}}</div>
-          <div class="product__price">{{product[0].price|slice(0,-2) ~ '.' ~ product[0].price|slice(-2) ~ ' zł'}}</div>
-          <div class="product__quantity">{{'x' ~ product[1]}}</div>
-        </div>
-        <div class="product__actions">
-          <a href="{{ path('basket_remove', {'id' : product[0].id}) }}">{{"button.remove_from_basket" | trans}}</a>
-        </div>
-      </div>
+        {% if product[0] and product[1] %}
+          <div class="basketWidget__product__wrapper">
+            <div class="basketWidget__product">
+              <div class="product__name">{{product[0].name}}</div>
+              <div class="product__price">{{product[0].price|slice(0,-2) ~ '.' ~ product[0].price|slice(-2) ~ ' zł'}}</div>
+              <div class="product__quantity">{{'x' ~ product[1]}}</div>
+            </div>
+            <div class="product__actions">
+              <a href="{{ path('basket_remove', {'id' : product[0].id}) }}">{{"button.remove_from_basket" | trans}}</a>
+            </div>
+          </div>
+        {% endif %}
       {% endfor %}
       <div class="products__actions d-block">
         <a href="{{ path('basket_clear') }}">{{"button.clear_basket" | trans}}</a>

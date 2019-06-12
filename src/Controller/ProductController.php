@@ -11,13 +11,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
 
-/**
- * @Route("/product")
- */
+
 class ProductController extends Controller
 {
     /**
-     * @Route("/", name="product_index", methods={"GET"})
+     * @Route("/product/", name="product_index", methods={"GET"})
      *
      * @param Request            $request
      * @param ProductRepository  $productRepository
@@ -42,7 +40,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/new", name="product_new", methods={"GET","POST"})
+     * @Route("/admin/product/new", name="product_new", methods={"GET","POST"})
      *
      * @param Request $request
      *
@@ -69,7 +67,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="product_show", methods={"GET"})
+     * @Route("/product/{id}", name="product_show", methods={"GET"})
      *
      * @param Product $product
      *
@@ -83,7 +81,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/{id}/edit", name="product_edit", methods={"GET","POST"})
+     * @Route("/admin/product/{id}/edit", name="product_edit", methods={"GET","POST"})
      *
      * @param Request $request
      * @param Product $product
@@ -120,7 +118,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="product_delete", methods={"DELETE"})
+     * @Route("/admin/product/{id}", name="product_delete", methods={"DELETE"})
      *
      * @param Request $request
      * @param Product $product

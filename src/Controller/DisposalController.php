@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
 
 /**
- * @Route("/disposal")
+ * @Route("/admin/disposal")
  */
 class DisposalController extends Controller
 {
