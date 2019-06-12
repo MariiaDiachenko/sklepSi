@@ -58,28 +58,43 @@ class Disposal
      */
     private $updatedAt;
 
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="disposals")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
+    /**
+     * class constructor
+     */
     public function __construct()
     {
         $this->disposal_details = new ArrayCollection();
     }
 
+    /**
+     *
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     *
+     * @return string|null
+     */
     public function getAddress(): ?string
     {
         return $this->address;
     }
 
+    /**
+     *
+     * @param  string $address
+     * @return self
+     */
     public function setAddress(string $address): self
     {
         $this->address = $address;
@@ -87,11 +102,20 @@ class Disposal
         return $this;
     }
 
+    /**
+     *
+     * @return string|null
+     */
     public function getStatus(): ?string
     {
         return $this->status;
     }
 
+    /**
+     *
+     * @param  string $status
+     * @return self
+     */
     public function setStatus(string $status): self
     {
         $this->status = $status;
@@ -99,11 +123,20 @@ class Disposal
         return $this;
     }
 
+    /**
+     *
+     * @return \DateTimeInterface|null
+     */
     public function getTimestamp(): ?\DateTimeInterface
     {
         return $this->timestamp;
     }
 
+    /**
+     *
+     * @param  DateTimeInterface $timestamp
+     * @return self
+     */
     public function setTimestamp(\DateTimeInterface $timestamp): self
     {
         $this->timestamp = $timestamp;
@@ -119,6 +152,11 @@ class Disposal
         return $this->disposalDetails;
     }
 
+    /**
+     *
+     * @param  DisposalDetails $disposalDetail
+     * @return self
+     */
     public function addDisposalDetail(DisposalDetails $disposalDetail): self
     {
         if (!$this->disposalDetails->contains($disposalDetail)) {
@@ -129,6 +167,11 @@ class Disposal
         return $this;
     }
 
+    /**
+     *
+     * @param  DisposalDetails $disposalDetail
+     * @return self
+     */
     public function removeDisposalDetail(DisposalDetails $disposalDetail): self
     {
         if ($this->disposalDetails->contains($disposalDetail)) {
@@ -142,11 +185,20 @@ class Disposal
         return $this;
     }
 
+    /**
+     *
+     * @return User|null
+     */
     public function getUser(): ?User
     {
         return $this->user;
     }
 
+    /**
+     *
+     * @param  User $user
+     * @return self
+     */
     public function setUser(User $user): self
     {
         $this->user = $user;
@@ -154,11 +206,20 @@ class Disposal
         return $this;
     }
 
+    /**
+     *
+     * @return \DateTimeInterface|null
+     */
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
+    /**
+     *
+     * @param  DateTimeInterface $createdAt
+     * @return self
+     */
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
@@ -166,11 +227,20 @@ class Disposal
         return $this;
     }
 
+    /**
+     *
+     * @return DateTimeInterface|null
+     */
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
     }
 
+    /**
+     *
+     * @param  DateTimeInterface $updatedAt
+     * @return self                         
+     */
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;

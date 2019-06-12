@@ -15,36 +15,51 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
+/**
+* ProductType
+*/
 class ProductType extends AbstractType
 {
+    /**
+    * @inheritdoc
+    */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('img', FileType::class, [
-              'required' => false
+                'required' => false,
             ])
             ->add('name', TextType::class)
             ->add('price', NumberType::class)
             ->add('description', TextareaType::class)
-            ->add('isRecommended',
-            CheckboxType::class,[
-              'required' => false,
-            ])
-            ->add('isNew',
-            CheckboxType::class, [
-              'required' => false,
-            ])
+            ->add(
+                'isRecommended',
+                CheckboxType::class,
+                [
+                'required' => false,
+                ]
+            )
+            ->add(
+                'isNew',
+                CheckboxType::class,
+                [
+                'required' => false,
+                ]
+            )
             ->add('category', EntityType::class, [
-              'class' => Category::class,
-              'choice_label' => 'name',
+                'class' => Category::class,
+                'choice_label' => 'name',
             ])
             ->add('shop', EntityType::class, [
-              'class' => Shop::class,
-              'choice_label' => 'name',
+                'class' => Shop::class,
+                'choice_label' => 'name',
             ])
         ;
     }
 
+    /**
+    * @inheritdoc
+    */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

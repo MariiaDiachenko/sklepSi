@@ -18,14 +18,20 @@ class ShopController extends Controller
 {
     /**
      * @Route("/", name="shop_index", methods={"GET"})
+     *
+     * @param Request            $request
+     * @param ShopRepository     $shopRepository
+     * @param PaginatorInterface $paginator
+     *
+     * @return Response
      */
     public function index(Request $request, ShopRepository $shopRepository, PaginatorInterface $paginator): Response
     {
         $pagination = $paginator->paginate(
-           $shopRepository->queryAll(),
-           $request->query->getInt('page', 1),
-           Shop::NUMBER_OF_ITEMS
-       );
+            $shopRepository->queryAll(),
+            $request->query->getInt('page', 1),
+            Shop::NUMBER_OF_ITEMS
+        );
 
         return $this->render('shop/index.html.twig', [
             'shops' => $pagination,
@@ -34,6 +40,11 @@ class ShopController extends Controller
 
     /**
      * @Route("/new", name="shop_new", methods={"GET","POST"})
+     *
+     * @param Request        $request
+     * @param ShopRepository $shopRepository
+     *
+     * @return Response
      */
     public function new(Request $request, ShopRepository $shopRepository): Response
     {
@@ -43,8 +54,9 @@ class ShopController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ($shopRepository->findAll()) {
-              $this->addFlash('danger', 'you cant have more than one shop');
-              return $this->redirectToRoute('shop_index');
+                $this->addFlash('danger', 'you cant have more than one shop');
+
+                return $this->redirectToRoute('shop_index');
             }
 
             $entityManager = $this->getDoctrine()->getManager();
@@ -62,6 +74,10 @@ class ShopController extends Controller
 
     /**
      * @Route("/{id}", name="shop_show", methods={"GET"})
+     *
+     * @param Shop $shop
+     *
+     * @return Response
      */
     public function show(Shop $shop): Response
     {
@@ -72,6 +88,11 @@ class ShopController extends Controller
 
     /**
      * @Route("/{id}/edit", name="shop_edit", methods={"GET","POST"})
+     *
+     * @param Request $request
+     * @param Shop    $shop
+     *
+     * @return Response
      */
     public function edit(Request $request, Shop $shop): Response
     {
@@ -94,14 +115,20 @@ class ShopController extends Controller
 
     /**
      * @Route("/{id}", name="shop_delete", methods={"DELETE"})
+     *
+     * @param Request $request
+     * @param Shop    $shop
+     *
+     * @return Response
      */
     public function delete(Request $request, Shop $shop): Response
     {
         if ($this->isCsrfTokenValid('delete'.$shop->getId(), $request->request->get('_token'))) {
-          if ($shop->hasProducts()) {
-            $this->addFlash('danger', 'message.cant_delete_shop_containing_products');
-            return $this->redirect($this->generateUrl('shop_show', ['id'=>$shop->getId()]));
-          }
+            if ($shop->hasProducts()) {
+                $this->addFlash('danger', 'message.cant_delete_shop_containing_products');
+
+                return $this->redirect($this->generateUrl('shop_show', ['id' => $shop->getId()]));
+            }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($shop);

@@ -28,6 +28,7 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=80)
+     *
      * @Assert\NotBlank
      * @Assert\Regex("/^[\p{L}_\d ]+$/")
      * @Assert\Length(min=1, max=254)
@@ -36,12 +37,14 @@ class Product
 
     /**
      * @ORM\Column(type="integer")
+     *
      * @Assert\Type(type="integer")
      */
     private $price;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *
      * @Assert\NotBlank
      * @Assert\Regex("/^[\p{L}_\d \n]+$/")
      * @Assert\Length(min=1, max=254)
@@ -50,12 +53,14 @@ class Product
 
     /**
      * @ORM\Column(type="boolean")
+     *
      * @Assert\Type(type="bool")
      */
     private $isRecommended;
 
     /**
      * @ORM\Column(type="boolean")
+     *
      * @Assert\Type(type="bool")
      */
     private $isNew;
@@ -72,20 +77,33 @@ class Product
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     *
      * @Gedmo\Timestampable(on="update")
      */
     private $timestamp;
 
+    /**
+     *
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return $img
+     */
     public function getImg()
     {
         return $this->img;
     }
 
+    /**
+     * @param string $img
+     *
+     * @return self
+     */
     public function setImg($img): self
     {
         $this->img = $img;
@@ -93,11 +111,20 @@ class Product
         return $this;
     }
 
+    /**
+     *
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+    /**
+     * @param  string $name
+     *
+     * @return self
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -105,11 +132,21 @@ class Product
         return $this;
     }
 
+    /**
+     *
+     * @return int|null
+     */
     public function getPrice(): ?int
     {
         return $this->price;
     }
 
+    /**
+     * [setPrice description]
+     * @param  int $price [description]
+     *
+     * @return self        [description]
+     */
     public function setPrice(int $price): self
     {
         $this->price = $price;
@@ -117,71 +154,122 @@ class Product
         return $this;
     }
 
+    /**
+     * [getDescription description]
+     * @return [type] [description]
+     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
+    /**
+     * [setDescription description]
+     * @param  ?string $description [description]
+     *
+     * @return self                 [description]
+     */
     public function setDescription(?string $description): self
     {
         $this->description = $description;
 
         return $this;
     }
-
+    /**
+     * [getIsRecommended description]
+     * @return [type] [description]
+     */
     public function getIsRecommended(): ?bool
     {
         return $this->isRecommended;
     }
-
+    /**
+     * [setIsRecommended description]
+     * @param  bool $isRecommended [description]
+     *
+     * @return self                [description]
+     */
     public function setIsRecommended(bool $isRecommended): self
     {
         $this->isRecommended = $isRecommended;
 
         return $this;
     }
-
+    /**
+     * [getIsNew description]
+     * @return [type] [description]
+     */
     public function getIsNew(): ?bool
     {
         return $this->isNew;
     }
-
+    /**
+     * [setIsNew description]
+     * @param  bool $isNew [description]
+     *
+     * @return self        [description]
+     */
     public function setIsNew(bool $isNew): self
     {
         $this->isNew = $isNew;
 
         return $this;
     }
-
+    /**
+     * [getCategory description]
+     * @return [type] [description]
+     */
     public function getCategory(): ?Category
     {
         return $this->category;
     }
-
+    /**
+     * [setCategory description]
+     * @param  ?Category $category [description]
+     *
+     * @return self                [description]
+     */
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
 
         return $this;
     }
-
+    /**
+     * [getShop description]
+     * @return [type] [description]
+     */
     public function getShop(): ?Shop
     {
         return $this->shop;
     }
 
+    /**
+     *
+     * @param  ?Shop $shop
+     *
+     * @return self
+     */
     public function setShop(?Shop $shop): self
     {
         $this->shop = $shop;
 
         return $this;
     }
-
+    /**
+     * [getTimestamp description]
+     * @return [type] [description]
+     */
     public function getTimestamp(): ?\DateTimeInterface
     {
         return $this->timestamp;
     }
-
+    /**
+     * [setTimestamp description]
+     * @param  ?DateTimeInterface $timestamp [description]
+     *
+     * @return self                          [description]
+     */
     public function setTimestamp(?\DateTimeInterface $timestamp): self
     {
         $this->timestamp = $timestamp;

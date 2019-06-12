@@ -10,13 +10,14 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
+ *
  * @UniqueEntity("name")
  */
 class Category
 {
     /**Items per page */
     const NUMBER_OF_ITEMS = 10;
-  
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -26,6 +27,7 @@ class Category
 
     /**
      * @ORM\Column(type="string", length=255, unique=True)
+     *
      * @Assert\NotBlank
      * @Assert\Regex("/^[\p{L}_\d ]+$/")
      * @Assert\Length(min=1, max=254)
@@ -37,21 +39,37 @@ class Category
      */
     private $products;
 
+    /**
+     * class constructor
+     */
     public function __construct()
     {
         $this->products = new ArrayCollection();
     }
 
+    /**
+     *
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     *
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+    /**
+     *
+     * @param  string $name
+     * @return self
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -59,9 +77,13 @@ class Category
         return $this;
     }
 
+    /**
+     *
+     * @return boolean
+     */
     public function hasProducts()
     {
-      return (bool) count($this->products);
+        return (bool) count($this->products);
     }
 
     /**
@@ -72,6 +94,11 @@ class Category
         return $this->products;
     }
 
+    /**
+     *
+     * @param  Product $product
+     * @return self
+     */
     public function addProduct(Product $product): self
     {
         if (!$this->products->contains($product)) {
@@ -82,6 +109,11 @@ class Category
         return $this;
     }
 
+    /**
+     *
+     * @param  Product $product
+     * @return self
+     */
     public function removeProduct(Product $product): self
     {
         if ($this->products->contains($product)) {

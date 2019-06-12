@@ -18,14 +18,20 @@ class CategoryController extends Controller
 {
     /**
      * @Route("/", name="category_index", methods={"GET"})
+     *
+     * @param Request            $request
+     * @param CategoryRepository $categoryRepository
+     * @param PaginatorInterface $paginator
+     *
+     * @return Response
      */
     public function index(Request $request, CategoryRepository $categoryRepository, PaginatorInterface $paginator): Response
     {
         $pagination = $paginator->paginate(
-           $categoryRepository->queryAll(),
-           $request->query->getInt('page', 1),
-           Category::NUMBER_OF_ITEMS
-       );
+            $categoryRepository->queryAll(),
+            $request->query->getInt('page', 1),
+            Category::NUMBER_OF_ITEMS
+        );
 
         return $this->render('category/index.html.twig', [
             'categories' => $pagination,
@@ -34,6 +40,10 @@ class CategoryController extends Controller
 
     /**
      * @Route("/new", name="category_new", methods={"GET","POST"})
+     *
+     * @param Request $request
+     *
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -58,6 +68,10 @@ class CategoryController extends Controller
 
     /**
      * @Route("/{id}", name="category_show", methods={"GET"})
+     *
+     * @param Category $category
+     *
+     * @return Response
      */
     public function show(Category $category): Response
     {
@@ -68,6 +82,11 @@ class CategoryController extends Controller
 
     /**
      * @Route("/{id}/edit", name="category_edit", methods={"GET","POST"})
+     *
+     * @param Request  $request
+     * @param Category $category
+     *
+     * @return Response
      */
     public function edit(Request $request, Category $category): Response
     {
@@ -90,13 +109,19 @@ class CategoryController extends Controller
 
     /**
      * @Route("/{id}", name="category_delete", methods={"DELETE"})
+     *
+     * @param Request  $request
+     * @param Category $category
+     *
+     * @return Response
      */
     public function delete(Request $request, Category $category): Response
     {
         if ($this->isCsrfTokenValid('delete'.$category->getId(), $request->request->get('_token'))) {
             if ($category->hasProducts()) {
-              $this->addFlash('danger', 'message.cant_delete_category_containing_products');
-              return $this->redirect($this->generateUrl('category_show', ['id'=>$category->getId()]));
+                $this->addFlash('danger', 'message.cant_delete_category_containing_products');
+
+                return $this->redirect($this->generateUrl('category_show', ['id' => $category->getId()]));
             }
 
             $entityManager = $this->getDoctrine()->getManager();
@@ -107,12 +132,19 @@ class CategoryController extends Controller
         return $this->redirectToRoute('category_index');
     }
 
-    public function widget(CategoryRepository $categoryRepository)
+    /**
+     * Widget to render
+     *
+     * @param CategoryRepository $categoryRepository
+     *
+     * @return Response
+     */
+    public function widget(CategoryRepository $categoryRepository): Response
     {
         $categories = $categoryRepository->findBy([], null, 10);
+
         return $this->render('category/widget.html.twig', [
-          'categories' => $categories,
+            'categories' => $categories,
         ]);
     }
-
 }

@@ -15,27 +15,36 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class ProductRepository extends ServiceEntityRepository
 {
+    /**
+    * @param RegistryInterface $registry
+    */
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Product::class);
     }
 
-    public function queryAllWithFilters($categoryId=null, $shopId=null): QueryBuilder
+    /**
+    * @param int $categoryId
+    * @param int $shopId
+    *
+    * @return QueryBuilder
+    */
+    public function queryAllWithFilters($categoryId = null, $shopId = null): QueryBuilder
     {
-      $builder = $this->createQueryBuilder('p')
+        $builder = $this->createQueryBuilder('p')
         ->orderBy('p.timestamp', 'DESC');
 
-      if ($categoryId && is_int($categoryId)) {
-        $builder->where('p.category = :id')
-          ->setParameter(':id', $categoryId, \PDO::PARAM_INT);
-      }
+        if ($categoryId && is_int($categoryId)) {
+            $builder->where('p.category = :id')
+            ->setParameter(':id', $categoryId, \PDO::PARAM_INT);
+        }
 
-      if ($shopId && is_int($shopId)) {
-        $builder->where('p.shop = :id')
-          ->setParameter(':id', $shopId, \PDO::PARAM_INT);
-      }
+        if ($shopId && is_int($shopId)) {
+            $builder->where('p.shop = :id')
+            ->setParameter(':id', $shopId, \PDO::PARAM_INT);
+        }
 
-      return $builder;
+        return $builder;
     }
 
     // /**

@@ -2,14 +2,17 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Shop;
-use App\Repository\ShopRepository;
-use App\Repository\CategoryRepository;
 
+/**
+* Shop Fixtures class
+*/
 class ShopFixtures extends AbstractBaseFixtures
 {
+    /**
+    * @inheritdoc
+    */
     public function loadData(ObjectManager $manager): void
     {
         $shop = new Shop();
@@ -19,6 +22,6 @@ class ShopFixtures extends AbstractBaseFixtures
         $shop->setEmail($this->faker->unique()->safeEmail);
         $shop->setBankAccount('29 9999 9999 9999 9999 9999 9999');
         $this->manager->persist($shop);
-      $this->manager->flush();
+        $this->manager->flush();
     }
 }

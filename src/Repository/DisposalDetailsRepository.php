@@ -1,8 +1,12 @@
 <?php
+/**
+* App\Repository\DisposalDetailsRepository
+*/
 
 namespace App\Repository;
 
 use App\Entity\DisposalDetails;
+use App\Repository\DisposalDetailsRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -14,6 +18,9 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class DisposalDetailsRepository extends ServiceEntityRepository
 {
+    /**
+    * @param RegistryInterface $registry
+    */
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, DisposalDetails::class);

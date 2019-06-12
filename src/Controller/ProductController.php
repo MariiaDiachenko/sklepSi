@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Product;
-use App\Entity\Category;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -19,17 +18,23 @@ class ProductController extends Controller
 {
     /**
      * @Route("/", name="product_index", methods={"GET"})
+     *
+     * @param Request            $request
+     * @param ProductRepository  $productRepository
+     * @param PaginatorInterface $paginator
+     *
+     * @return Response
      */
     public function index(Request $request, ProductRepository $productRepository, PaginatorInterface $paginator): Response
     {
         $pagination = $paginator->paginate(
-           $productRepository->queryAllWithFilters(
-             $request->query->getInt('category', 0),
-             $request->query->getInt('shop', 0)
-           ),
-           $request->query->getInt('page', 1),
-           Product::NUMBER_OF_ITEMS
-       );
+            $productRepository->queryAllWithFilters(
+                $request->query->getInt('category', 0),
+                $request->query->getInt('shop', 0)
+            ),
+            $request->query->getInt('page', 1),
+            Product::NUMBER_OF_ITEMS
+        );
 
         return $this->render('product/index.html.twig', [
             'products' => $pagination,
@@ -38,6 +43,10 @@ class ProductController extends Controller
 
     /**
      * @Route("/new", name="product_new", methods={"GET","POST"})
+     *
+     * @param Request $request
+     *
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -61,6 +70,10 @@ class ProductController extends Controller
 
     /**
      * @Route("/{id}", name="product_show", methods={"GET"})
+     *
+     * @param Product $product
+     *
+     * @return Response
      */
     public function show(Product $product): Response
     {
@@ -71,6 +84,11 @@ class ProductController extends Controller
 
     /**
      * @Route("/{id}/edit", name="product_edit", methods={"GET","POST"})
+     *
+     * @param Request $request
+     * @param Product $product
+     *
+     * @return Response
      */
     public function edit(Request $request, Product $product): Response
     {
@@ -82,10 +100,10 @@ class ProductController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $formImg = $product->getImg();
-            if ($formImg !== null) {
-              $product->setImg($formImg);
+            if (null !== $formImg) {
+                $product->setImg($formImg);
             } else {
-              $product->setImg($img);
+                $product->setImg($img);
             }
 
             $this->getDoctrine()->getManager()->flush();
@@ -103,6 +121,11 @@ class ProductController extends Controller
 
     /**
      * @Route("/{id}", name="product_delete", methods={"DELETE"})
+     *
+     * @param Request $request
+     * @param Product $product
+     *
+     * @return Response
      */
     public function delete(Request $request, Product $product): Response
     {

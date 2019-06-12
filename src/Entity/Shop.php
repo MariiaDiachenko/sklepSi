@@ -23,6 +23,7 @@ class Shop
 
     /**
      * @ORM\Column(type="string", length=80)
+     *
      * @Assert\NotBlank
      * @Assert\Regex("/^[\p{L}_\d \n]+$/")
      * @Assert\Length(min=1, max=80)
@@ -31,6 +32,7 @@ class Shop
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      * @Assert\NotBlank
      * @Assert\Regex("/^[\p{L}_\d \n]+$/")
      * @Assert\Length(min=1, max=80)
@@ -39,6 +41,7 @@ class Shop
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *
      * @Assert\Regex("/^\+?[\d]+$/")
      * @Assert\Length(min=9, max=18)
      */
@@ -46,6 +49,7 @@ class Shop
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      * @Assert\Email(checkMX = true)
      */
     private $email;
@@ -57,27 +61,42 @@ class Shop
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *
      * @Assert\Regex("/^\+?[\d]+$/")
      * @Assert\Length(min=9, max=18)
      */
     private $bankAccount;
 
-
+    /**
+     * class Constructot
+     */
     public function __construct()
     {
         $this->products = new ArrayCollection();
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * getter
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+    /**
+     * @param  string $name
+     *
+     * @return self
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -85,11 +104,19 @@ class Shop
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getAddress(): ?string
     {
         return $this->address;
     }
 
+    /**
+     * @param  string $address
+     *
+     * @return self
+     */
     public function setAddress(string $address): self
     {
         $this->address = $address;
@@ -97,11 +124,21 @@ class Shop
         return $this;
     }
 
+    /**
+     *
+     * @return string|null
+     */
     public function getPhone(): ?string
     {
         return $this->phone;
     }
 
+    /**
+     *
+     * @param  string|null $phone
+     *
+     * @return self
+     */
     public function setPhone(?string $phone): self
     {
         $this->phone = $phone;
@@ -109,11 +146,21 @@ class Shop
         return $this;
     }
 
+    /**
+     *
+     * @return string|null
+     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
+    /**
+     *
+     * @param  string $email
+     *
+     * @return self
+     */
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -121,9 +168,13 @@ class Shop
         return $this;
     }
 
+    /**
+     *
+     * @return boolean
+     */
     public function hasProducts()
     {
-      return (bool) count($this->products);
+        return (bool) count($this->products);
     }
 
     /**
@@ -134,6 +185,12 @@ class Shop
         return $this->products;
     }
 
+    /**
+     *
+     * @param  Product $product
+     *
+     * @return self
+     */
     public function addProduct(Product $product): self
     {
         if (!$this->products->contains($product)) {
@@ -144,6 +201,12 @@ class Shop
         return $this;
     }
 
+    /**
+     *
+     * @param  Product $product
+     *
+     * @return self
+     */
     public function removeProduct(Product $product): self
     {
         if ($this->products->contains($product)) {
@@ -157,11 +220,21 @@ class Shop
         return $this;
     }
 
+    /**
+     *
+     * @return string|null
+     */
     public function getBankAccount(): ?string
     {
         return $this->bankAccount;
     }
 
+    /**
+     *
+     * @param  string $bankAccount
+     *
+     * @return self
+     */
     public function setBankAccount(string $bankAccount): self
     {
         $this->bankAccount = $bankAccount;

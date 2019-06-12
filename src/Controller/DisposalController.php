@@ -19,14 +19,20 @@ class DisposalController extends Controller
 {
     /**
      * @Route("/", name="disposal_index", methods={"GET"})
+     *
+     * @param DisposalRepository $disposalRepository
+     * @param PaginatorInterface $paginator
+     * @param Request            $request
+     *
+     * @return Response
      */
     public function index(DisposalRepository $disposalRepository, PaginatorInterface $paginator, Request $request): Response
     {
-      $pagination = $paginator->paginate(
-         $disposalRepository->queryAll(),
-         $request->query->getInt('page', 1),
-         Disposal::NUMBER_OF_ITEMS
-     );
+        $pagination = $paginator->paginate(
+            $disposalRepository->queryAll(),
+            $request->query->getInt('page', 1),
+            Disposal::NUMBER_OF_ITEMS
+        );
 
         return $this->render('disposal/index.html.twig', [
             'disposals' => $pagination,
@@ -35,6 +41,10 @@ class DisposalController extends Controller
 
     /**
      * @Route("/new", name="disposal_new", methods={"GET","POST"})
+     *
+     * @param Request $request
+     *
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -58,24 +68,34 @@ class DisposalController extends Controller
 
     /**
      * @Route("/{id}/{user}", name="disposal_user_show", requirements={"id"="\d+", "user"="\d+"}, methods={"GET"})
+     *
+     * @param Disposal       $disposal
+     * @param ShopRepository $shopRepository
+     * @param string         $user
+     *
+     * @return Response
      */
-    public function userShow(Disposal $disposal, ShopRepository $shopRepository, $user): Response
+    public function userShow(Disposal $disposal, ShopRepository $shopRepository, string $user): Response
     {
-      $userId = $user;
-      $user = $this->getUser();
-      if ((int)$userId !== $user->getId()) {
-        $this->addFlash('danger','message.you_cant_view_this_disposal');
-        $this->redirectToRoute('product_index');
-      }
+        $userId = $user;
+        $user = $this->getUser();
+        if ((int) $userId !== $user->getId()) {
+            $this->addFlash('danger', 'message.you_cant_view_this_disposal');
+            $this->redirectToRoute('product_index');
+        }
 
-      return $this->render('disposal/user_show.html.twig', [
-          'shop' => $shopRepository->findAll()[0],
-          'disposal' => $disposal,
-      ]);
+        return $this->render('disposal/user_show.html.twig', [
+            'shop' => $shopRepository->findAll()[0],
+            'disposal' => $disposal,
+        ]);
     }
 
     /**
      * @Route("/{id}", name="disposal_show", methods={"GET"})
+     *
+     * @param Disposal $disposal
+     *
+     * @return Response
      */
     public function show(Disposal $disposal): Response
     {
@@ -86,6 +106,11 @@ class DisposalController extends Controller
 
     /**
      * @Route("/{id}/edit", name="disposal_edit", methods={"GET","POST"})
+     *
+     * @param Request  $request
+     * @param Disposal $disposal
+     *
+     * @return Response
      */
     public function edit(Request $request, Disposal $disposal): Response
     {
@@ -108,6 +133,11 @@ class DisposalController extends Controller
 
     /**
      * @Route("/{id}", name="disposal_delete", methods={"DELETE"})
+     *
+     * @param Request  $request
+     * @param Disposal $disposal
+     *
+     * @return Response
      */
     public function delete(Request $request, Disposal $disposal): Response
     {

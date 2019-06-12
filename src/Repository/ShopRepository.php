@@ -15,16 +15,22 @@ use Doctrine\ORM\QueryBuilder;
  */
 class ShopRepository extends ServiceEntityRepository
 {
+    /**
+    * @param RegistryInterface $registry
+    */
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Shop::class);
     }
 
+    /**
+    * @return QueryBuilder
+    */
     public function queryAll(): QueryBuilder
     {
-      $builder = $this->createQueryBuilder('s');
+        $builder = $this->createQueryBuilder('s');
 
-      return $builder;
+        return $builder;
     }
 
     // /**

@@ -8,20 +8,29 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
+/**
+* DisposalType
+*/
 class DisposalType extends AbstractType
 {
+    /**
+    * @inheritdoc
+    */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('status', ChoiceType::class, [
-              'choices' => [
+                'choices' => [
                 Disposal::STATUS_WAITING_FOR_PAYMENT => Disposal::STATUS_WAITING_FOR_PAYMENT,
                 DISPOSAL::STATUS_PAYED => DISPOSAL::STATUS_PAYED,
-                DISPOSAL::STATUS_SENDED => DISPOSAL::STATUS_SENDED
-              ],
+                DISPOSAL::STATUS_SENDED => DISPOSAL::STATUS_SENDED,
+                ],
             ]);
     }
 
+    /**
+    * @inheritdoc
+    */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

@@ -10,7 +10,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\PersistentCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -33,7 +32,7 @@ class User implements UserInterface
     */
     const NUMBER_OF_ITEMS = 10;
 
-      /**
+    /**
      * Role user.
      *
      * @var string
@@ -56,6 +55,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=80)
+     *
      * @Assert\NotBlank(groups={"registration"})
      * @Assert\Regex("/^[\p{L}\d ]+$/", groups={"registration"})
      * @Assert\Length(min=1, max=80, groups={"registration"})
@@ -64,6 +64,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=80)
+     *
      * @Assert\NotBlank(groups={"registration"})
      * @Assert\Regex("/^[\p{L}_\d ]+$/", groups={"registration"})
      * @Assert\Length(min=1, max=80, groups={"registration"})
@@ -72,6 +73,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=80)
+     *
      * @Assert\NotBlank(groups={"registration"})
      * @Assert\Regex("/^[\p{L}_\d ]+$/", groups={"registration"})
      * @Assert\Length(min=1, max=254, groups={"registration"})
@@ -105,6 +107,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=80, nullable=true)
+     *
      * @Assert\Regex("/^\+?[\d]+$/", groups={"registration"})
      * @Assert\Length(min=9, max=18, groups={"registration"})
      */
@@ -138,6 +141,9 @@ class User implements UserInterface
      */
     private $disposals;
 
+    /**
+    * User Entity constructor
+    */
     public function __construct()
     {
         $this->roles = new ArrayCollection();
@@ -146,6 +152,8 @@ class User implements UserInterface
 
     /**
      * @see UserInterface
+     *
+     * @inheritdoc
      */
     public function getSalt()
     {
@@ -154,6 +162,8 @@ class User implements UserInterface
 
     /**
      * @see UserInterface
+     *
+     * @inheritdoc
      */
     public function eraseCredentials()
     {
@@ -161,17 +171,27 @@ class User implements UserInterface
         // $this->plainPassword = null;
     }
 
-
+    /**
+    * @return int|null
+    */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+    * @return string|null
+    */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+    /**
+    * @param string $name
+    *
+    * @return User
+    */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -179,11 +199,19 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+    * @return string|null
+    */
     public function getSurname(): ?string
     {
         return $this->surname;
     }
 
+    /**
+    * @param string $surname
+    *
+    * @return User
+    */
     public function setSurname(string $surname): self
     {
         $this->surname = $surname;
@@ -191,11 +219,19 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+    * @return string|null
+    */
     public function getUsername(): ?string
     {
         return $this->username;
     }
 
+    /**
+    * @param string $username
+    *
+    * @return User
+    */
     public function setUsername(string $username): self
     {
         $this->username = $username;
@@ -203,11 +239,19 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+    * @return string|null
+    */
     public function getPassword(): ?string
     {
         return $this->password;
     }
 
+    /**
+    * @param string $password
+    *
+    * @return User
+    */
     public function setPassword(string $password): self
     {
         $this->password = $password;
@@ -215,11 +259,19 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+    * @return string
+    */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
+    /**
+    * @param string $email
+    *
+    * @return User
+    */
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -227,11 +279,19 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+    * @return string|null
+    */
     public function getPhone(): ?string
     {
         return $this->phone;
     }
 
+    /**
+    * @param string $phone
+    *
+    * @return User
+    */
     public function setPhone(?string $phone): self
     {
         $this->phone = $phone;
@@ -249,9 +309,15 @@ class User implements UserInterface
             $roles[] = $role->getRole();
         }
         $roles[] = static::ROLE_USER;
+
         return array_unique($roles);
     }
 
+    /**
+    * @param Role $role
+    *
+    * @return User
+    */
     public function addRole(Role $role): self
     {
         if (!$this->roles->contains($role)) {
@@ -262,6 +328,11 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+    * @param Role $role
+    *
+    * @return User
+    */
     public function removeRole(Role $role): self
     {
         if ($this->roles->contains($role)) {
@@ -275,11 +346,19 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+    * @return \DateTimeInterface|null
+    */
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
+    /**
+    * @param \DateTimeInterface $createdAt
+    *
+    * @return User
+    */
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
@@ -287,11 +366,19 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+    * @return \DateTimeInterface|null
+    */
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
     }
 
+    /**
+    * @param \DateTimeInterface $updatedAt
+    *
+    * @return User
+    */
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
@@ -307,6 +394,11 @@ class User implements UserInterface
         return $this->disposals;
     }
 
+    /**
+    * @param Disposal $disposal
+    *
+    * @return User
+    */
     public function addDisposal(Disposal $disposal): self
     {
         if (!$this->disposals->contains($disposal)) {
@@ -317,6 +409,11 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+    * @param Disposal $disposal
+    *
+    * @return User
+    */
     public function removeDisposal(Disposal $disposal): self
     {
         if ($this->disposals->contains($disposal)) {

@@ -15,16 +15,22 @@ use Doctrine\ORM\QueryBuilder;
  */
 class CategoryRepository extends ServiceEntityRepository
 {
+    /**
+    * @param RegistryInterface $registry
+    */
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Category::class);
     }
 
+    /**
+    * @return QueryBuilder
+    */
     public function queryAll(): QueryBuilder
     {
-      $builder = $this->createQueryBuilder('c');
+        $builder = $this->createQueryBuilder('c');
 
-      return $builder;
+        return $builder;
     }
 
     // /**

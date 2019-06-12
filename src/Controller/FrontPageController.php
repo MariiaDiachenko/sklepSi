@@ -4,13 +4,19 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
+/**
+ * Front Page Controller class
+ */
 class FrontPageController extends Controller
 {
     /**
      * @Route("/", name="front_page")
+     *
+     * @return RedirectResponse
      */
-    public function index()
+    public function index(): RedirectResponse
     {
         return $this->redirectToRoute('product_index');
     }
