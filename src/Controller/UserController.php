@@ -13,6 +13,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
+/**
+ * User Controller Class
+ */
 class UserController extends Controller
 {
     /**
@@ -77,11 +80,11 @@ class UserController extends Controller
      */
     public function show(User $user): Response
     {
-      if (!$this->isGranted(USER::ROLE_ADMIN)) {
-          if (null == $this->getUser() || $user->getUsername() !== $this->getUser()->getUsername()) {
-              return $this->redirectToRoute('front_page');
-          }
-      }
+        if (!$this->isGranted(USER::ROLE_ADMIN)) {
+            if (null == $this->getUser() || $user->getUsername() !== $this->getUser()->getUsername()) {
+                return $this->redirectToRoute('front_page');
+            }
+        }
 
         return $this->render('user/show.html.twig', [
             'user' => $user,
