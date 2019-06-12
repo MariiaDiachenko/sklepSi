@@ -46,7 +46,7 @@ class Role
 
     /**
      * @param  string $role
-     * 
+     *
      * @return self
      */
     public function setRole(string $role): self

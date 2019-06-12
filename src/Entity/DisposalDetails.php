@@ -36,16 +36,30 @@ class DisposalDetails
      */
     private $productName;
 
+    /**
+     *
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     *
+     * @return int|null
+     */
     public function getCopiedPrice(): ?int
     {
         return $this->copiedPrice;
     }
 
+    /**
+     *
+     * @param  int $copiedPrice
+     *
+     * @return self
+     */
     public function setCopiedPrice(int $copiedPrice): self
     {
         $this->copiedPrice = $copiedPrice;
@@ -53,11 +67,21 @@ class DisposalDetails
         return $this;
     }
 
+    /**
+     *
+     * @return int|null
+     */
     public function getQuantity(): ?int
     {
         return $this->quantity;
     }
 
+    /**
+     *
+     * @param  int $quantity
+     *
+     * @return self
+     */
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
@@ -65,11 +89,21 @@ class DisposalDetails
         return $this;
     }
 
+    /**
+     *
+     * @return Disposal|null
+     */
     public function getDisposal(): ?Disposal
     {
         return $this->disposal;
     }
 
+    /**
+     *
+     * @param  ?Disposal $disposal
+     *
+     * @return self
+     */
     public function setDisposal(?Disposal $disposal): self
     {
         $this->disposal = $disposal;
@@ -77,11 +111,21 @@ class DisposalDetails
         return $this;
     }
 
+    /**
+     *
+     * @return string|null
+     */
     public function getProductName(): ?string
     {
         return $this->productName;
     }
 
+    /**
+     *
+     * @param  string $productName
+     *
+     * @return self
+     */
     public function setProductName(string $productName): self
     {
         $this->productName = $productName;

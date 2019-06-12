@@ -68,6 +68,7 @@ class Category
     /**
      *
      * @param  string $name
+     *
      * @return self
      */
     public function setName(string $name): self
@@ -97,6 +98,7 @@ class Category
     /**
      *
      * @param  Product $product
+     *
      * @return self
      */
     public function addProduct(Product $product): self
@@ -112,6 +114,7 @@ class Category
     /**
      *
      * @param  Product $product
+     *
      * @return self
      */
     public function removeProduct(Product $product): self

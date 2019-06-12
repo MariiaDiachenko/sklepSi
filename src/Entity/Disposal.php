@@ -69,7 +69,7 @@ class Disposal
      */
     public function __construct()
     {
-        $this->disposal_details = new ArrayCollection();
+        $this->disposalDetails = new ArrayCollection();
     }
 
     /**
@@ -93,6 +93,7 @@ class Disposal
     /**
      *
      * @param  string $address
+     *
      * @return self
      */
     public function setAddress(string $address): self
@@ -114,6 +115,7 @@ class Disposal
     /**
      *
      * @param  string $status
+     *
      * @return self
      */
     public function setStatus(string $status): self
@@ -135,6 +137,7 @@ class Disposal
     /**
      *
      * @param  DateTimeInterface $timestamp
+     *
      * @return self
      */
     public function setTimestamp(\DateTimeInterface $timestamp): self
@@ -155,6 +158,7 @@ class Disposal
     /**
      *
      * @param  DisposalDetails $disposalDetail
+     *
      * @return self
      */
     public function addDisposalDetail(DisposalDetails $disposalDetail): self
@@ -170,6 +174,7 @@ class Disposal
     /**
      *
      * @param  DisposalDetails $disposalDetail
+     *
      * @return self
      */
     public function removeDisposalDetail(DisposalDetails $disposalDetail): self
@@ -197,6 +202,7 @@ class Disposal
     /**
      *
      * @param  User $user
+     *
      * @return self
      */
     public function setUser(User $user): self
@@ -218,6 +224,7 @@ class Disposal
     /**
      *
      * @param  DateTimeInterface $createdAt
+     *
      * @return self
      */
     public function setCreatedAt(\DateTimeInterface $createdAt): self
@@ -239,7 +246,8 @@ class Disposal
     /**
      *
      * @param  DateTimeInterface $updatedAt
-     * @return self                         
+     *
+     * @return self
      */
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
