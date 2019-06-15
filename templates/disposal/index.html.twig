@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Disposal index{% endblock %}
+{% block title %}{{ 'title.disposal_index' | trans }}{% endblock %}
 
 {% block body %}
-    <h1>Disposal index</h1>
+    <h1>{{ 'header.disposal_index' | trans }}</h1>
 
     <div class="navigation text-center">
       {{ knp_pagination_render(disposals) }}
@@ -12,11 +12,11 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Address</th>
-                <th>Status</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
+                <th>{{ 'id' | trans }}</th>
+                <th>{{ 'address' | trans }}</th>
+                <th>{{ 'status' | trans }}</th>
+                <th>{{ 'created_at' | trans }}</th>
+                <th>{{ 'updated_at' | trans }}</th>
                 <th> {{ 'actions' | trans }} </th>
             </tr>
         </thead>

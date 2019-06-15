@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Product index{% endblock %}
+{% block title %}{{ 'title.product_index' | trans }}{% endblock %}
 
 {% block body %}
         <div class="navigation text-center">
@@ -14,7 +14,7 @@
           {% for product in products %}
               {% include 'product/_single_product.html.twig' %}
           {% else %}
-            <h2>no records found</h2>
+            <h2>{{ 'no_records_found' | trans }}</h2>
           {% endfor %}
         </div>
         <div class="navigation text-center">

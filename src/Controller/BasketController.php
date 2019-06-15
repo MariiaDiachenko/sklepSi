@@ -59,7 +59,8 @@ class BasketController extends Controller
 
         $this->denyAccessUnlessGranted('ROLE_USER');
 
-        $form = $this->createForm(AddressType::class);
+        $form = $this->createForm(AddressType::class, []);
+        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $shop = $shopRepository->findAll()[0];
@@ -68,8 +69,8 @@ class BasketController extends Controller
             $disposal = new Disposal();
             $disposal->setUser($user);
             $disposal->setStatus(Disposal::STATUS_WAITING_FOR_PAYMENT);
-            $form->handleRequest($request);
             $disposal->setAddress($form->getData()['address']);
+
 
             foreach ($this->makeBasketForRender($session, $productRepository) as $productQty) {
                 $detail = new DisposalDetails();

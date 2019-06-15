@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Shop index{% endblock %}
+{% block title %}{{ 'title.shop_index' | trans }}{% endblock %}
 
 {% block body %}
-    <h1>Shop index</h1>
+    <h1>{{ 'header.shop_index' | trans }}</h1>
     <div class="navigation text-center">
       {{ knp_pagination_render(shops) }}
     </div>
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>{{ 'id' | trans }}</th>
                 <th> {{ 'name' | trans }} </th>
-                <th>Address</th>
-                <th>Phone</th>
-                <th>Email</th>
+                <th>{{ 'address' | trans }}</th>
+                <th>{{ 'phone' | trans }}</th>
+                <th>{{ 'email' | trans }}</th>
                 <th> {{ 'actions' | trans }} </th>
             </tr>
         </thead>

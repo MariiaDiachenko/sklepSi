@@ -1,35 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Disposal{% endblock %}
+{% block title %}{{ 'title.disposal_show' | trans }}{% endblock %}
 
 {% block body %}
-    <h1>Disposal</h1>
+    <h1>{{ 'header.disposal_show' | trans }}</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>{{ 'id' | trans }}</th>
                 <td>{{ disposal.id }}</td>
             </tr>
             <tr>
-                <th>Address</th>
+                <th>{{ 'address' | trans }}</th>
                 <td>{{ disposal.address }}</td>
             </tr>
             <tr>
-                <th>Status</th>
+                <th>{{ 'status' | trans }}</th>
                 <td>{{ disposal.status }}</td>
             </tr>
             <tr>
-                <th>CreatedAt</th>
+                <th>{{ 'created_at' | trans }}</th>
                 <td>{{ disposal.createdAt ? disposal.createdAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>UpdatedAt</th>
+                <th>{{ 'updated_at' | trans }}</th>
                 <td>{{ disposal.updatedAt ? disposal.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             {% for detail in disposal.disposalDetails %}
               <tr>
-                  <th>product name</th>
+                  <th>{{ 'product_name' | trans }}</th>
                   <td>{{ detail.productName}} {{detail.copiedPrice|slice(0,-2) ~ '.' ~ detail.copiedPrice|slice(-2) ~ ' zł'}} x{{detail.quantity}}</td>
               </tr>
             {% endfor %}

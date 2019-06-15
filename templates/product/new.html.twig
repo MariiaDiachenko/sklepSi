@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Product{% endblock %}
+{% block title %}{{ 'title.new_product' | trans }}{% endblock %}
 
 {% block body %}
-    <h1>Create new Product</h1>
+    <h1>{{ 'title.new_product' | trans }}</h1>
 
     {{ include('product/_form.html.twig') }}
 

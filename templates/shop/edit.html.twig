@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Shop{% endblock %}
+{% block title %}{{ 'title.edit_shop' | trans }}{% endblock %}
 
 {% block body %}
-    <h1>Edit Shop</h1>
+    <h1>{{ 'header.edit_shop' | trans }}</h1>
 
     {{ include('shop/_form.html.twig', {'button_label': 'Update'}) }}
 

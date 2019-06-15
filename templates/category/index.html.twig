@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Category index{% endblock %}
+{% block title %}{{ 'title.category_index' | trans }}{% endblock %}
 
 {% block body %}
-    <h1>Category index</h1>
+    <h1>{{ 'header.category_index' | trans }}</h1>
 
     <div class="navigation text-center">
       {{ knp_pagination_render(categories) }}
@@ -11,7 +11,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>{{ 'id' | trans }}</th>
                 <th> {{ 'name' | trans }} </th>
                 <th> {{ 'actions' | trans }} </th>
             </tr>

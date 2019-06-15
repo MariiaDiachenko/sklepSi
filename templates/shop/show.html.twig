@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Shop{% endblock %}
+{% block title %}{{ 'title.show_shop' | trans }}{% endblock %}
 
 {% block body %}
-    <h1>Shop</h1>
+    <h1>{{ 'header.show_shop' | trans }}</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>{{ 'id' | trans }}</th>
                 <td>{{ shop.id }}</td>
             </tr>
             <tr>
@@ -16,15 +16,15 @@
                 <td>{{ shop.name }}</td>
             </tr>
             <tr>
-                <th>Address</th>
+                <th>{{ 'address' | trans }}</th>
                 <td>{{ shop.Address }}</td>
             </tr>
             <tr>
-                <th>Phone</th>
+                <th>{{ 'phone' | trans }}</th>
                 <td>{{ shop.phone }}</td>
             </tr>
             <tr>
-                <th>Email</th>
+                <th>{{ 'email' | trans }}</th>
                 <td>{{ shop.email }}</td>
             </tr>
         </tbody>

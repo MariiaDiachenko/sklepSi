@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Disposal{% endblock %}
+{% block title %}{{ 'title.new_disposal' | trans }}{% endblock %}
 
 {% block body %}
-    <h1>Create new Disposal</h1>
+    <h1>{{ 'header.new_disposal' | trans }}</h1>
 
     {{ include('disposal/_form.html.twig') }}
 

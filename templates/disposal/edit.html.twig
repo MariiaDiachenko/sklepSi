@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Disposal{% endblock %}
+{% block title %}{{ 'title.edit_disposal' | trans }}{% endblock %}
 
 {% block body %}
-    <h1>Edit Disposal</h1>
+    <h1>{{ 'header.edit_disposal' | trans }}</h1>
 
     {{ include('disposal/_form.html.twig', {'button_label': 'Update'}) }}
 
