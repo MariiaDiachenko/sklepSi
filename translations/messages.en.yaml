@@ -1,0 +1,97 @@
+title.show_shop: sklep
+header.show_shop: sklep
+id: id
+name: nazwa
+address: address
+phone: phone
+email: email
+button.back_to_list: 'back to list'
+button.edit: edit
+title.shop_index: 'shop index'
+header.shop_index: 'shop index'
+actions: actions
+button.show: show
+no_records_found: 'no records found'
+button.create_new: 'create new'
+title.edit_shop: 'edit shop'
+header.edit_shop: 'edit shop'
+button.delete: delete
+title.new_shop: 'new shop'
+header.new_shop: 'new shop'
+button.save: save
+title.user: user
+header.user: user
+surname: surname
+username: username
+created_at: 'created at'
+updated_at: 'updated at'
+title.user_index: 'user index'
+header.user_index: 'user index'
+title.edit_user: 'edit user'
+header.edit_user: 'edit user'
+button.add_admin_access: 'add admin access'
+title.register: register
+header.register: register
+title.login: login
+label.username: username
+label.password: password
+action.login: login
+title.category_show: 'category show'
+header.category_show: 'category show'
+title.category_index: 'category index'
+header.category_index: 'category index'
+title.category_edit: 'category edit'
+header.categories: categories
+all: all
+title.new_category: 'new category'
+header.new_category: 'new category'
+title.disposal_show: 'disposal show'
+header.disposal_show: 'disposal show'
+status: status
+product_name: 'product name'
+title.disposal_index: 'disposal index'
+header.disposal_index: 'disposal index'
+title.edit_disposal: 'edit disposal'
+header.edit_disposal: 'edit disposal'
+header.disposal: disposal
+header.your_disposal_status_is: 'your disposal status is'
+header.please_pay_to_account_number: 'please pay to account number'
+header.with_header: 'as payment title please write'
+button.back_to_shop: 'back to shop'
+title.new_disposal: 'new disposal'
+header.new_disposal: 'new disposal'
+header.shop_name: 'shop name'
+previous: previous
+next: next
+menu.shop_title: 'sklepSi'
+menu.home: home
+menu.login: login
+menu.register: register
+menu.security_logout: logout
+menu.disposal: disposal
+menu.users: users
+menu.shop: shop
+menu.category: category
+title.checkout: checkout
+header.product_checkout: 'product checkout'
+img: img
+price: price
+quantity: quantity
+button.remove_from_basket: 'remove from basket'
+total_price_is: 'total price is'
+header.yourDisposal: 'your disposal'
+header.on_what_address_you_like_to_send_package: 'on what addressyou like to send package'
+button.i_order_and_pay: 'i order and pay'
+header.basket: basket
+button.clear_basket: 'clear'
+button.basket_checkout: 'checkout'
+title.product: product
+button.add_to_basket: 'add to basket'
+title.product_index: 'product index'
+button.createNew: 'create new'
+title.edit_product: 'edit product'
+header.edit_product: 'edit product'
+title.new_product: 'new product'
+'': ''
+product.recommended: recommended
+product.new: new

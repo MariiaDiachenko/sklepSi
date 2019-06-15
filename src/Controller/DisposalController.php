@@ -13,12 +13,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
 
 /**
- * @Route("/admin/disposal")
+ * Disposal controller class
  */
 class DisposalController extends Controller
 {
     /**
-     * @Route("/", name="disposal_index", methods={"GET"})
+     * @Route("/admin/disposal/", name="disposal_index", methods={"GET"})
      *
      * @param DisposalRepository $disposalRepository
      * @param PaginatorInterface $paginator
@@ -40,7 +40,7 @@ class DisposalController extends Controller
     }
 
     /**
-     * @Route("/new", name="disposal_new", methods={"GET","POST"})
+     * @Route("/admin/disposal/new", name="disposal_new", methods={"GET","POST"})
      *
      * @param Request $request
      *
@@ -67,7 +67,7 @@ class DisposalController extends Controller
     }
 
     /**
-     * @Route("/{id}/{user}", name="disposal_user_show", requirements={"id"="\d+", "user"="\d+"}, methods={"GET"})
+     * @Route("/disposal/{id}/{user}", name="disposal_user_show", requirements={"id"="\d+", "user"="\d+"}, methods={"GET"})
      *
      * @param Disposal       $disposal
      * @param ShopRepository $shopRepository
@@ -91,7 +91,7 @@ class DisposalController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="disposal_show", methods={"GET"})
+     * @Route("/admin/disposal/{id}", name="disposal_show", methods={"GET"})
      *
      * @param Disposal $disposal
      *
@@ -105,7 +105,7 @@ class DisposalController extends Controller
     }
 
     /**
-     * @Route("/{id}/edit", name="disposal_edit", methods={"GET","POST"})
+     * @Route("/admin/disposal/{id}/edit", name="disposal_edit", methods={"GET","POST"})
      *
      * @param Request  $request
      * @param Disposal $disposal
@@ -132,7 +132,7 @@ class DisposalController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="disposal_delete", methods={"DELETE"})
+     * @Route("/admin/disposal/{id}", name="disposal_delete", methods={"DELETE"})
      *
      * @param Request  $request
      * @param Disposal $disposal
