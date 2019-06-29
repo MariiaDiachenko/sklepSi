@@ -60,10 +60,10 @@ header.with_header: 'as payment title please write'
 button.back_to_shop: 'back to shop'
 title.new_disposal: 'new disposal'
 header.new_disposal: 'new disposal'
-header.shop_name: 'shop name'
+
 previous: previous
 next: next
-menu.shop_title: 'sklepSi'
+menu.shop_title: 'Baby Store'
 menu.home: home
 menu.login: login
 menu.register: register
@@ -95,3 +95,4 @@ title.new_product: 'new product'
 '': ''
 product.recommended: recommended
 product.new: new
+menu.user_edit: 'edit account'

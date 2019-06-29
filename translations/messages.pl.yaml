@@ -2,7 +2,7 @@ title.show_shop: sklep
 header.show_shop: sklep
 id: id
 name: Imię
-address: Addres
+address: Address
 phone: Telefon
 email: Email
 button.back_to_list: 'Powrót'
@@ -60,7 +60,7 @@ header.with_header: 'jako tytuł płatności napisz'
 button.back_to_shop: 'wróć do sklepu'
 title.new_disposal: 'nowe zamówienie'
 header.new_disposal: 'nowe zamówienie'
-header.shop_name: 'Baby Store'
+
 previous: poprzedni
 next: następny
 menu.shop_title: 'BABY STORE'
@@ -71,7 +71,7 @@ menu.security_logout: Wyloguj się
 menu.disposal: Sprzedaż
 menu.users: Użytkownik
 menu.shop: Sklep
-menu.category: Kategoria
+menu.category: Kategorie
 title.checkout: Zamówienia
 header.product_checkout: 'product checkout'
 img: Img
@@ -79,9 +79,9 @@ price: Cena
 quantity: Ilość
 button.remove_from_basket: 'wyjmij z koszyka'
 total_price_is: 'łączna cena wynosi'
-header.yourDisposal: 'twoja dyspozycji'
+header.yourDisposal: 'twoje zamówienie'
 header.on_what_address_you_like_to_send_package: 'na jaki adres chcesz wysłać paczke?'
-button.i_order_and_pay: 'Zamawiam i płacę'
+button.i_order_and_pay: 'Dalej'
 header.basket: Kosz
 button.clear_basket: 'Usuń'
 button.basket_checkout: 'Kupuj '
@@ -93,6 +93,12 @@ title.edit_product: 'Edytować produkt'
 header.edit_product: 'Edytować'
 title.new_product: 'Nowy'
 '': ''
-product.recommended: Rekomendowane
+product.recommended: Wyprzedaż
 product.new: Nowość
 menu.user_edit: 'Esytowanie konta'
+Name: Nazwa
+message:
+  product_added_to_basket: 'Dodano do koszyka'
+  Address: 'Adresa'
+
+  roder_successfully_saved: 'Zamówienie zapisane'

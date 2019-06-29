@@ -13,12 +13,16 @@
         <li class="nav-item active">
           <a class="nav-link" href="{{ path('security_login') }}">{{ 'menu.login' | trans }}</a>
         </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="{{ path('user_new') }}">{{ 'menu.register' | trans }}</a>
-        </li>
         {% if is_granted('ROLE_USER') %}
           <li class="nav-item active">
             <a class="nav-link" href="{{ path('security_logout') }}">{{ 'menu.security_logout' | trans }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('user_edit', {'id':app.user.id }) }}">{{ 'menu.user_edit' | trans }}</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('user_new') }}">{{ 'menu.register' | trans }}</a>
           </li>
         {% endif %}
         {% if is_granted('ROLE_ADMIN') %}
