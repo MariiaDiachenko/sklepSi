@@ -1,5 +1,13 @@
-.basketWidget{
+.table {
+    width: 82%;
+    margin-bottom: 1rem;
+    color: #212529;
+    margin-left: -258px;
 }
+.basketWidget{
+margin-left: 84%;
+}
+
 .navigation .pagination{
   display: flex;
   align-items: center;
@@ -47,7 +55,7 @@ a {
 
 .navigation.text-center {
     margin-top: 20px;
-    margin-left: 50%;
+    margin-left: -50%;
 }
 .text-center {
     text-align: center!important;

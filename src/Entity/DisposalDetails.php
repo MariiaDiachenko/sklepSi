@@ -27,7 +27,7 @@ class DisposalDetails
     private $quantity;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Disposal", inversedBy="disposal_details")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Disposal", inversedBy="disposalDetails")
      */
     private $disposal;
 
