@@ -8,6 +8,7 @@ use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
+ * Product Repository class
  * @method Product|null find($id, $lockMode = null, $lockVersion = null)
  * @method Product|null findOneBy(array $criteria, array $orderBy = null)
  * @method Product[]    findAll()
@@ -16,6 +17,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 class ProductRepository extends ServiceEntityRepository
 {
     /**
+    * Construct 
     * @param RegistryInterface $registry
     */
     public function __construct(RegistryInterface $registry)
@@ -24,6 +26,7 @@ class ProductRepository extends ServiceEntityRepository
     }
 
     /**
+    * Query all with filters
     * @param int $categoryId
     * @param int $shopId
     *

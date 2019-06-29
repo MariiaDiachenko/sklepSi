@@ -1,0 +1,4 @@
+1. Przenies katalog projektu do pożądanego katalogu na serwerze
+2. Zainstaluj composer.phar
+3. Wykonaj composer install w katalogu projektu
+4. Wykonaj bin/console doctrine:schema create w katalogu projektu

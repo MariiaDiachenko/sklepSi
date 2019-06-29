@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\ORM\QueryBuilder;
 
 /**
+ * Shop repository
  * @method Shop|null find($id, $lockMode = null, $lockVersion = null)
  * @method Shop|null findOneBy(array $criteria, array $orderBy = null)
  * @method Shop[]    findAll()
@@ -16,6 +17,7 @@ use Doctrine\ORM\QueryBuilder;
 class ShopRepository extends ServiceEntityRepository
 {
     /**
+    * Construct
     * @param RegistryInterface $registry
     */
     public function __construct(RegistryInterface $registry)
@@ -24,6 +26,7 @@ class ShopRepository extends ServiceEntityRepository
     }
 
     /**
+    * Create queury builder
     * @return QueryBuilder
     */
     public function queryAll(): QueryBuilder

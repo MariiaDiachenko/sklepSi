@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\ORM\QueryBuilder;
 
 /**
+ * User repository
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
  * @method User|null findOneBy(array $criteria, array $orderBy = null)
  * @method User[]    findAll()
@@ -16,6 +17,7 @@ use Doctrine\ORM\QueryBuilder;
 class UserRepository extends ServiceEntityRepository
 {
     /**
+    * Construct
     * @param RegistryInterface $registry
     */
     public function __construct(RegistryInterface $registry)
@@ -24,6 +26,7 @@ class UserRepository extends ServiceEntityRepository
     }
 
     /**
+    * Create query builder
     * @return QueryBuilder
     */
     public function queryAll(): QueryBuilder

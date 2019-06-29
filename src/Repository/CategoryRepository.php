@@ -8,6 +8,8 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\ORM\QueryBuilder;
 
 /**
+ * Category Repository
+ *
  * @method Category|null find($id, $lockMode = null, $lockVersion = null)
  * @method Category|null findOneBy(array $criteria, array $orderBy = null)
  * @method Category[]    findAll()
@@ -16,6 +18,7 @@ use Doctrine\ORM\QueryBuilder;
 class CategoryRepository extends ServiceEntityRepository
 {
     /**
+    * Construct
     * @param RegistryInterface $registry
     */
     public function __construct(RegistryInterface $registry)
@@ -24,6 +27,7 @@ class CategoryRepository extends ServiceEntityRepository
     }
 
     /**
+    * Create query builder
     * @return QueryBuilder
     */
     public function queryAll(): QueryBuilder

@@ -11,6 +11,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
+ * Disposal details repository
  * @method DisposalDetails|null find($id, $lockMode = null, $lockVersion = null)
  * @method DisposalDetails|null findOneBy(array $criteria, array $orderBy = null)
  * @method DisposalDetails[]    findAll()
@@ -19,6 +20,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 class DisposalDetailsRepository extends ServiceEntityRepository
 {
     /**
+    * Construct
     * @param RegistryInterface $registry
     */
     public function __construct(RegistryInterface $registry)

@@ -10,6 +10,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
+ * Repository class
  * @method Role|null find($id, $lockMode = null, $lockVersion = null)
  * @method Role|null findOneBy(array $criteria, array $orderBy = null)
  * @method Role[]    findAll()
@@ -18,6 +19,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 class RoleRepository extends ServiceEntityRepository
 {
     /**
+    * Construct
     * @param RegistryInterface $registry
     */
     public function __construct(RegistryInterface $registry)

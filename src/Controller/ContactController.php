@@ -8,12 +8,15 @@ use App\Repository\ShopRepository;
 use App\Entity\Shop;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+*  Contact controller class
+*/
 class ContactController extends Controller
 {
     /**
      * @Route("/contact", name="contact", methods={"GET"})
      *
-     * @param Shop $shop
+     * @param ShopRepository $shopRepository
      *
      * @return Response
      */

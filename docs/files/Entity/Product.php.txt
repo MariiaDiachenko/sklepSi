@@ -1,0 +1,280 @@
+<?php
+
+namespace App\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
+
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ */
+class Product
+{
+    /**Items per page */
+    const NUMBER_OF_ITEMS = 10;
+
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $img;
+
+    /**
+     * @ORM\Column(type="string", length=80)
+     *
+     * @Assert\NotBlank
+     * @Assert\Regex("/^[\p{L}_\d ]+$/")
+     * @Assert\Length(min=1, max=254)
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(type="integer")
+     *
+     * @Assert\Type(type="integer")
+     */
+    private $price;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @Assert\NotBlank
+     * @Assert\Regex("/^[\p{L}_\d \n\.]+$/")
+     * @Assert\Length(min=1, max=254)
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="boolean")
+     *
+     * @Assert\Type(type="bool")
+     */
+    private $isRecommended;
+
+    /**
+     * @ORM\Column(type="boolean")
+     *
+     * @Assert\Type(type="bool")
+     */
+    private $isNew;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="products")
+     */
+    private $category;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Shop", inversedBy="products")
+     */
+    private $shop;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     *
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $timestamp;
+
+    /**
+     *
+     * @return int|null
+     */
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return $img
+     */
+    public function getImg()
+    {
+        return $this->img;
+    }
+
+    /**
+     * @param string $img
+     *
+     * @return self
+     */
+    public function setImg($img): self
+    {
+        $this->img = $img;
+
+        return $this;
+    }
+
+    /**
+     *
+     * @return string|null
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param  string $name
+     *
+     * @return self
+     */
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     *
+     * @return int|null
+     */
+    public function getPrice(): ?int
+    {
+        return $this->price;
+    }
+
+    /**
+     * [setPrice description]
+     * @param  int $price [description]
+     *
+     * @return self        [description]
+     */
+    public function setPrice(int $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * [getDescription description]
+     * @return [type] [description]
+     */
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    /**
+     * [setDescription description]
+     * @param  ?string $description [description]
+     *
+     * @return self                 [description]
+     */
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+    /**
+     * [getIsRecommended description]
+     * @return [type] [description]
+     */
+    public function getIsRecommended(): ?bool
+    {
+        return $this->isRecommended;
+    }
+    /**
+     * [setIsRecommended description]
+     * @param  bool $isRecommended [description]
+     *
+     * @return self                [description]
+     */
+    public function setIsRecommended(bool $isRecommended): self
+    {
+        $this->isRecommended = $isRecommended;
+
+        return $this;
+    }
+    /**
+     * [getIsNew description]
+     * @return [type] [description]
+     */
+    public function getIsNew(): ?bool
+    {
+        return $this->isNew;
+    }
+    /**
+     * [setIsNew description]
+     * @param  bool $isNew [description]
+     *
+     * @return self        [description]
+     */
+    public function setIsNew(bool $isNew): self
+    {
+        $this->isNew = $isNew;
+
+        return $this;
+    }
+    /**
+     * [getCategory description]
+     * @return [type] [description]
+     */
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+    /**
+     * [setCategory description]
+     * @param  ?Category $category [description]
+     *
+     * @return self                [description]
+     */
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+    /**
+     * [getShop description]
+     * @return [type] [description]
+     */
+    public function getShop(): ?Shop
+    {
+        return $this->shop;
+    }
+
+    /**
+     *
+     * @param  ?Shop $shop
+     *
+     * @return self
+     */
+    public function setShop(?Shop $shop): self
+    {
+        $this->shop = $shop;
+
+        return $this;
+    }
+    /**
+     * [getTimestamp description]
+     * @return [type] [description]
+     */
+    public function getTimestamp(): ?\DateTimeInterface
+    {
+        return $this->timestamp;
+    }
+    /**
+     * [setTimestamp description]
+     * @param  ?DateTimeInterface $timestamp [description]
+     *
+     * @return self                          [description]
+     */
+    public function setTimestamp(?\DateTimeInterface $timestamp): self
+    {
+        $this->timestamp = $timestamp;
+
+        return $this;
+    }
+}
+
