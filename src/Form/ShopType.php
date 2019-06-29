@@ -24,6 +24,7 @@ class ShopType extends AbstractType
             ->add('address', TextType::class)
             ->add('phone', TextType::class)
             ->add('email', EmailType::class)
+            ->add('bankAccount', TextType::class);
         ;
     }
 

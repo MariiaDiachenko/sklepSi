@@ -15,6 +15,7 @@
                 <th>{{ 'address' | trans }}</th>
                 <th>{{ 'phone' | trans }}</th>
                 <th>{{ 'email' | trans }}</th>
+                <th>{{ 'bankAccount' | trans }}</th>
                 <th> {{ 'actions' | trans }} </th>
             </tr>
         </thead>
@@ -26,6 +27,7 @@
                 <td>{{ shop.Address }}</td>
                 <td>{{ shop.phone }}</td>
                 <td>{{ shop.email }}</td>
+                <td>{{ shop.bankAccount }}</td>
                 <td>
                     <a href="{{ path('shop_show', {'id': shop.id}) }}">{{ 'button.show' | trans }}</a>
                     <a href="{{ path('shop_edit', {'id': shop.id}) }}">{{ 'button.edit' | trans }}</a>

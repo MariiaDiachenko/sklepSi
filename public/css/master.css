@@ -1,2 +1,7 @@
 .basketWidget{
 }
+.navigation .pagination{
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
