@@ -59,6 +59,7 @@ class ProductController extends Controller
             $entityManager->persist($product);
             $entityManager->flush();
 
+            $this->addFlash('success', 'message.product_added');
             return $this->redirectToRoute('product_index');
         }
 
@@ -108,6 +109,7 @@ class ProductController extends Controller
 
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash('success', 'message.product_edited');
             return $this->redirectToRoute('product_index', [
                 'id' => $product->getId(),
             ]);
@@ -132,6 +134,8 @@ class ProductController extends Controller
         if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($product);
+
+            $this->addFlash('success', 'message.product_deleted');
             $entityManager->flush();
         }
 

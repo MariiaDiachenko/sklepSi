@@ -26,8 +26,9 @@
       <p class="card-text">{{product.description|slice(0, 155)}}</p>
     </div>
     <div class="card-footer">
-    <div>{{ product.isRecommended == null ? '' : 'product.recommended' | trans }}</div>
-    <div>{{ product.isNew == null ? '' : 'product.new' | trans }}</div>
+    <div class="bla">{{ product.isRecommended == null ? '' : 'product.recommended' | trans }}</div>
+    <div class="ble">{{ product.isNew == null ? '' : 'product.new' | trans }}
+    </div>
     </div>
   </div>
 </div>

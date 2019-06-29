@@ -1,21 +1,20 @@
-
-tle.show_shop: sklep
+title.show_shop: sklep
 header.show_shop: sklep
 id: id
 name: Imię
-address: Addres
+address: Address
 phone: Telefon
 email: Email
-button.back_to_list: 'Powrót'
+button.back_to_list: Powrót
 button.edit: Edytować
 title.shop_index: 'sklep index'
 header.shop_index: 'sklep index'
 actions: actions
 button.show: więcej
 no_records_found: 'Nic nie znaleziono'
-button.create_new: 'Nowy'
+button.create_new: Nowy
 title.edit_shop: 'Edytować sklep'
-header.edit_shop: 'Edytować'
+header.edit_shop: Edytować
 button.delete: usuń
 title.new_shop: 'nowy sklep'
 header.new_shop: 'nowy sklep'
@@ -23,7 +22,7 @@ button.save: Zapisz
 title.user: Użytkownik
 header.user: Użytkownik
 surname: Nazwisko
-username: Nazwa Użytkownika
+username: 'Nazwa Użytkownika'
 created_at: 'stworzony w'
 updated_at: 'zaktualizowany o'
 title.user_index: 'indeks użytkownika'
@@ -34,7 +33,7 @@ button.add_admin_access: 'dodaj dostęp administratora'
 title.register: Rejestracja
 header.register: Rejestracja
 title.login: Login
-label.username: nazwa użytkownika
+label.username: 'nazwa użytkownika'
 label.password: hasło
 action.login: login
 title.category_show: 'pokaz kategorii'
@@ -52,8 +51,8 @@ status: Status
 product_name: 'Nazwa produktu'
 title.disposal_index: 'usuń zamówienie'
 header.disposal_index: 'usuń zamówienie'
-title.edit_disposal: 'edytować'
-header.edit_disposal: 'edytować'
+title.edit_disposal: edytować
+header.edit_disposal: edytować
 header.disposal: Zamówienie
 header.your_disposal_status_is: 'twój status zamówienia to'
 header.please_pay_to_account_number: 'zapłać na numer konta'
@@ -61,18 +60,17 @@ header.with_header: 'jako tytuł płatności napisz'
 button.back_to_shop: 'wróć do sklepu'
 title.new_disposal: 'nowe zamówienie'
 header.new_disposal: 'nowe zamówienie'
-header.shop_name: 'Baby Store'
 previous: poprzedni
 next: następny
 menu.shop_title: 'BABY STORE'
 menu.home: Home
 menu.login: Login
 menu.register: Rejestracja
-menu.security_logout: Wyloguj się
+menu.security_logout: 'Wyloguj się'
 menu.disposal: Sprzedaż
 menu.users: Użytkownik
 menu.shop: Sklep
-menu.category: Kategoria
+menu.category: Kategorie
 title.checkout: Zamówienia
 header.product_checkout: 'product checkout'
 img: Img
@@ -80,20 +78,31 @@ price: Cena
 quantity: Ilość
 button.remove_from_basket: 'wyjmij z koszyka'
 total_price_is: 'łączna cena wynosi'
-header.yourDisposal: 'twoja dyspozycji'
+header.yourDisposal: 'twoje zamówienie'
 header.on_what_address_you_like_to_send_package: 'na jaki adres chcesz wysłać paczke?'
-button.i_order_and_pay: 'Zamawiam i płacę'
+button.i_order_and_pay: Dalej
 header.basket: Kosz
-button.clear_basket: 'Usuń'
+button.clear_basket: Usuń
 button.basket_checkout: 'Kupuj '
 title.product: Produkt
 button.add_to_basket: 'dodaj do koszyka'
 title.product_index: 'produkt index'
-button.createNew: 'Nowy'
+button.createNew: Nowy
 title.edit_product: 'Edytować produkt'
-header.edit_product: 'Edytować'
-title.new_product: 'Nowy'
+header.edit_product: Edytować
+title.new_product: Nowy
 '': ''
-product.recommended: Rekomendowane
+product.recommended: Wyprzedaż
 product.new: Nowość
 menu.user_edit: 'Esytowanie konta'
+Name: Nazwa
+message.product_added_to_basket: 'Dodano do koszyka'
+message.Address: Adresa
+message.roder_successfully_saved: 'Zamówienie zapisane'
+bankAccount: bankAccount
+menu.contact: contact
+title.contact: contact
+header.contact: contact
+message.product_added: 'dodano produkt'
+message.product_edited: 'zedytowano produkt'
+message.product_deleted: 'usunieto produkt'
