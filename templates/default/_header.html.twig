@@ -11,6 +11,9 @@
           <a class="nav-link" href="{{ path('product_index') }}">{{ 'menu.home' | trans }}</a>
         </li>
         <li class="nav-item active">
+          <a class="nav-link" href="{{ path('contact') }}">{{ 'menu.contact' | trans }}</a>
+        </li>
+        <li class="nav-item active">
           <a class="nav-link" href="{{ path('security_login') }}">{{ 'menu.login' | trans }}</a>
         </li>
         {% if is_granted('ROLE_USER') %}

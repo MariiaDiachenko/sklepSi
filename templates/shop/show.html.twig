@@ -6,28 +6,32 @@
     <h1>{{ 'header.show_shop' | trans }}</h1>
 
     <table class="table">
-        <tbody>
-            <tr>
-                <th>{{ 'id' | trans }}</th>
-                <td>{{ shop.id }}</td>
-            </tr>
-            <tr>
-                <th> {{ 'name' | trans }} </th>
-                <td>{{ shop.name }}</td>
-            </tr>
-            <tr>
-                <th>{{ 'address' | trans }}</th>
-                <td>{{ shop.Address }}</td>
-            </tr>
-            <tr>
-                <th>{{ 'phone' | trans }}</th>
-                <td>{{ shop.phone }}</td>
-            </tr>
-            <tr>
-                <th>{{ 'email' | trans }}</th>
-                <td>{{ shop.email }}</td>
-            </tr>
-        </tbody>
+      <tbody>
+          <tr>
+              <th>{{ 'id' | trans }}</th>
+              <td>{{ shop.id }}</td>
+          </tr>
+          <tr>
+              <th> {{ 'name' | trans }} </th>
+              <td>{{ shop.name }}</td>
+          </tr>
+          <tr>
+              <th>{{ 'address' | trans }}</th>
+              <td>{{ shop.Address }}</td>
+          </tr>
+          <tr>
+              <th>{{ 'phone' | trans }}</th>
+              <td>{{ shop.phone }}</td>
+          </tr>
+          <tr>
+              <th>{{ 'email' | trans }}</th>
+              <td>{{ shop.email }}</td>
+          </tr>
+          <tr>
+              <th>{{ 'bankAccount' | trans }}</th>
+              <td>{{ shop.bankAccount }}</td>
+          </tr>
+      </tbody>
     </table>
 
     <a href="{{ path('shop_index') }}">{{ 'button.back_to_list' | trans }}</a>

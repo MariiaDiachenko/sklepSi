@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'title.contact' | trans }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'header.contact' | trans }}</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>{{ 'id' | trans }}</th>
+                <td>{{ shop.id }}</td>
+            </tr>
+            <tr>
+                <th> {{ 'name' | trans }} </th>
+                <td>{{ shop.name }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'address' | trans }}</th>
+                <td>{{ shop.Address }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'phone' | trans }}</th>
+                <td>{{ shop.phone }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'email' | trans }}</th>
+                <td>{{ shop.email }}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}

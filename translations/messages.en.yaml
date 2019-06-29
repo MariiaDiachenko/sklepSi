@@ -63,7 +63,7 @@ header.new_disposal: 'new disposal'
 header.shop_name: 'shop name'
 previous: previous
 next: next
-menu.shop_title: 'sklepSi'
+menu.shop_title: sklepSi
 menu.home: home
 menu.login: login
 menu.register: register
@@ -83,8 +83,8 @@ header.yourDisposal: 'your disposal'
 header.on_what_address_you_like_to_send_package: 'on what addressyou like to send package'
 button.i_order_and_pay: 'i order and pay'
 header.basket: basket
-button.clear_basket: 'clear'
-button.basket_checkout: 'checkout'
+button.clear_basket: clear
+button.basket_checkout: checkout
 title.product: product
 button.add_to_basket: 'add to basket'
 title.product_index: 'product index'
@@ -96,3 +96,7 @@ title.new_product: 'new product'
 product.recommended: recommended
 product.new: new
 menu.user_edit: 'edit account'
+bankAccount: 'bank account'
+menu.contact: contact
+title.contact: contact
+header.contact: contact
