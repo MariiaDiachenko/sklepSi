@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use App\Form\AdminUserType;
 
 /**
  * User Controller Class
@@ -51,14 +52,29 @@ class UserController extends Controller
     public function new(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
         $user = new User();
-        $form = $this->createForm(UserType::class, $user);
+
+        $formType = $this->isGranted(USER::ROLE_ADMIN) ? AdminUserType::class : UserType::class;
+        $form = $this->createForm($formType, $user);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+          $entityManager = $this->getDoctrine()->getManager();
+          if ($this->isGranted(USER::ROLE_ADMIN) && $form->get('isAdmin')->getData() === true) {
+            $role = new Role();
+            $role->setRole(USER::ROLE_ADMIN);
+            $role->setUser($user);
+            $entityManager->persist($role);
+
+            $this->addFlash('success', 'message.admin_added');
+          } else {
+            $this->addFlash('success', 'message.admin_added');
+          }
+
+
             $user->setPassword(
                 $encoder->encodePassword($user, $user->getPassword())
             );
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -167,6 +183,12 @@ class UserController extends Controller
             if (null == $this->getUser() || $user->getUsername() !== $this->getUser()->getUsername()) {
                 return $this->redirectToRoute('front_page');
             }
+        }
+
+        if (count($user->getDisposals()) > 0) {
+          $this->addFlash('danger', 'message.cant_remove_user_having_disposals');
+
+          return $this->redirectToRoute('user_index');
         }
 
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {

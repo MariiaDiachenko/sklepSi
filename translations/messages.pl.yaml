@@ -94,20 +94,27 @@ title.new_product: Nowy
 '': ''
 product.recommended: Wyprzedaż
 product.new: Nowość
-menu.user_edit: 'Esytowanie konta'
+menu.user_edit: 'Konto'
 Name: Nazwa
 message.product_added_to_basket: 'Dodano do koszyka'
 message.Address: Adresa
 message.roder_successfully_saved: 'Zamówienie zapisane'
 bankAccount: bankAccount
-menu.contact: contact
-title.contact: contact
-header.contact: contact
+menu.contact: Contact
+title.contact: Contact
+header.contact: Contact
 message.product_added: 'dodano produkt'
 message.product_edited: 'zedytowano produkt'
 message.product_deleted: 'usunieto produkt'
-Username: Username
-Surname: Surname
-Password: Password
+Username: Imie
+Surname: Nazwisko
+Password: Hasło
 Email: Email
-Phone: Phone
+Phone: Telefon
+message.cant_remove_user_having_disposals: "Nie można usunąć użytkownika mającego przesyłki"
+message.admin_added: 'dodano dostęp administratora'
+Roles: Role
+normal_user: użytkownik
+admin_user: administrator
+Is admin: "is admin"
+message.user_added: 'dodano użytkownika'
