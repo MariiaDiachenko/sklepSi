@@ -111,7 +111,7 @@ Surname: Nazwisko
 Password: Hasło
 Email: Email
 Phone: Telefon
-message.cant_remove_user_having_disposals: "Nie można usunąć użytkownika mającego przesyłki"
+message.cant_remove_user_having_disposals: "Nie można usunąć użytkownika mającego zamówienia"
 message.admin_added: 'dodano dostęp administratora'
 Roles: Role
 normal_user: użytkownik
@@ -123,3 +123,4 @@ message.you_cant_view_this_disposal: 'nie możesz zobaczyć tego zamówienia'
 WAITING_FOR_PAYMENT: 'CZEKAJĄCE NA OPŁACENIE'
 PAYED: OPŁACONE
 SENDED: WYSŁANE
+menu.user_disposals: 'Zamówienia'

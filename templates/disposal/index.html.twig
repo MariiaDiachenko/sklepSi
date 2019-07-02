@@ -17,7 +17,9 @@
                 <th>{{ 'status' | trans }}</th>
                 <th>{{ 'created_at' | trans }}</th>
                 <th>{{ 'updated_at' | trans }}</th>
+                {% if is_granted('ROLE_ADMIN') %}
                 <th> {{ 'actions' | trans }} </th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -29,8 +31,10 @@
                 <td>{{ disposal.createdAt ? disposal.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ disposal.updatedAt ? disposal.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
+                  {% if is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('disposal_show', {'id': disposal.id}) }}">{{ 'button.show' | trans }}</a>
                     <a href="{{ path('disposal_edit', {'id': disposal.id}) }}">{{ 'button.edit' | trans }}</a>
+                  {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -45,5 +49,7 @@
       {{ knp_pagination_render(disposals) }}
     </div>
 
-    <a href="{{ path('disposal_new') }}">{{'button.create_new' | trans }}</a>
+    {% if is_granted('ROLE_ADMIN') %}
+      <a href="{{ path('disposal_new') }}">{{'button.create_new' | trans }}</a>
+    {% endif %}
 {% endblock %}

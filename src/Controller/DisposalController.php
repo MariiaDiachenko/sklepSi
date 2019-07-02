@@ -42,6 +42,28 @@ class DisposalController extends Controller
     }
 
     /**
+     * @Route("/disposal/index/{id}", name="disposal_user_index", methods={"GET"})
+     *
+     * @param DisposalRepository $disposalRepository
+     * @param PaginatorInterface $paginator
+     * @param Request            $request
+     *
+     * @return Response
+     */
+    public function userDisposalIndex($id, DisposalRepository $disposalRepository, PaginatorInterface $paginator, Request $request): Response
+    {
+        $pagination = $paginator->paginate(
+            $disposalRepository->queryForUser($id),
+            $request->query->getInt('page', 1),
+            Disposal::NUMBER_OF_ITEMS
+        );
+
+        return $this->render('disposal/index.html.twig', [
+            'disposals' => $pagination,
+        ]);
+    }
+
+    /**
      * @Route("/admin/disposal/new", name="disposal_new", methods={"GET","POST"})
      *
      * @param Request $request

@@ -36,4 +36,17 @@ class DisposalRepository extends ServiceEntityRepository
 
         return $builder;
     }
+
+    /**
+    * Query all for specified userId
+    * @return QueryBuilder
+    */
+    public function queryForUser($userId): QueryBuilder
+    {
+        $builder = $this->createQueryBuilder('d')
+          ->where('d.user = :id')
+          ->setParameter(':id', $userId, \PDO::PARAM_INT);
+
+        return $builder;
+    }
 }

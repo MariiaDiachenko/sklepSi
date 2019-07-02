@@ -188,7 +188,7 @@ class UserController extends Controller
         if (count($user->getDisposals()) > 0) {
           $this->addFlash('danger', 'message.cant_remove_user_having_disposals');
 
-          return $this->redirectToRoute('user_index');
+          return $this->redirectToRoute('front_page');
         }
 
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
