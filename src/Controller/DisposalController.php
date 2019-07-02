@@ -103,9 +103,10 @@ class DisposalController extends Controller
     {
         $userId = $user;
         $user = $this->getUser();
-        if (!$this->isGranted(USER::ROLE_ADMIN) || (int) $userId !== $user->getId()) {
-            $this->addFlash('danger', 'message.you_cant_view_this_disposal');
-            $this->redirectToRoute('product_index');
+
+        if (!$this->isGranted(USER::ROLE_ADMIN) && (int) $userId !== $user->getId()) {
+          $this->addFlash('danger', 'message.you_cant_view_this_disposal');
+          return $this->redirectToRoute('product_index');
         }
 
         $shopEntities = $shopRepository->findBy([], [],  1);
