@@ -13,9 +13,12 @@
         <li class="nav-item active">
           <a class="nav-link" href="{{ path('contact') }}">{{ 'menu.contact' | trans }}</a>
         </li>
+        {% if not is_granted('ROLE_USER') and not  is_granted('ROLE_USER') %}
         <li class="nav-item active">
           <a class="nav-link" href="{{ path('security_login') }}">{{ 'menu.login' | trans }}</a>
         </li>
+        {% endif %}
+
         {% if is_granted('ROLE_USER') %}
           <li class="nav-item active">
             <a class="nav-link" href="{{ path('security_logout') }}">{{ 'menu.security_logout' | trans }}</a>

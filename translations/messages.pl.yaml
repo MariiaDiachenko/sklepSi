@@ -100,9 +100,9 @@ message.product_added_to_basket: 'Dodano do koszyka'
 message.Address: Adres
 message.roder_successfully_saved: 'Zamówienie zapisane'
 bankAccount: 'konto bankowe'
-menu.contact: kontakt
-title.contact: kontakt
-header.contact: kontakt
+menu.contact: Kontakt
+title.contact: Kontakt
+header.contact: Kontakt
 message.product_added: 'dodano produkt'
 message.product_edited: 'zedytowano produkt'
 message.product_deleted: 'usunieto produkt'
