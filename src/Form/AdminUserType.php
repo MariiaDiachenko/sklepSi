@@ -30,8 +30,8 @@ class AdminUserType extends UserType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-      parent::buildForm($builder, $options);
-      $builder->add('isAdmin', CheckboxType::class, ['mapped' => false]);
+        parent::buildForm($builder, $options);
+        $builder->add('isAdmin', CheckboxType::class, ['mapped' => false]);
     }
 
     /**

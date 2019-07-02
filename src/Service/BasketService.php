@@ -17,34 +17,33 @@ class BasketService
   /**
   * string session variable previx
   */
-  const SESSION_PREFIX = 'basket_controller_session_bag_';
+    const SESSION_PREFIX = 'basket_controller_session_bag_';
 
   /** SessionInterface $session */
-  private $session;
+    private $session;
 
   /**
    * Constructor
    * @param SessionInterface $session [description]
    */
-  public function __construct(SessionInterface $session)
-  {
-    $this->session = $session;
-  }
+    public function __construct(SessionInterface $session)
+    {
+        $this->session = $session;
+    }
 
   /**
-   * Makes b
-   * @param SessionInterface  $session
-   * @param ProductRepository $productRepository
-   *
-   * @return array [Product $product, int $quantity]
-   */
-   public function makeBasketForRender(ProductRepository $productRepository): array
-   {
-       $basket = $this->getBasket($this->session);
-       $basketProducts = $productRepository->findBy(['id' => array_keys($basket)]);
+    * Make basket controller for render
+    * @param  ProductRepository $productRepository
+    *
+    * @return array
+    */
+    public function makeBasketForRender(ProductRepository $productRepository): array
+    {
+        $basket = $this->getBasket($this->session);
+        $basketProducts = $productRepository->findBy(['id' => array_keys($basket)]);
 
-       return array_map(null, $basketProducts, $basket);
-   }
+        return array_map(null, $basketProducts, $basket);
+    }
 
    /**
    * Get address from wchich request was send
@@ -52,29 +51,28 @@ class BasketService
    *
    * @return string
    */
-   public function getRefererUrl(Request $request): string
-   {
-       return $request->headers->get('referer');
-   }
+    public function getRefererUrl(Request $request): string
+    {
+        return $request->headers->get('referer');
+    }
 
    /**
    * Get array [key_containing_product_id => quantity]
-   * @param SessionInterface $session
    *
-   * @return string
+   * @return array
    */
-   public function getBasket(): array
-   {
-       $basket = array_filter(
-           $this->session->all(),
-           function ($key) {
-               return 0 === strpos($key, self::SESSION_PREFIX);
-           },
-           ARRAY_FILTER_USE_KEY
-       );
+    public function getBasket(): array
+    {
+        $basket = array_filter(
+            $this->session->all(),
+            function ($key) {
+                return 0 === strpos($key, self::SESSION_PREFIX);
+            },
+            ARRAY_FILTER_USE_KEY
+        );
 
-       return $this->removePrefix($basket);
-   }
+        return $this->removePrefix($basket);
+    }
 
    /**
    * Get array of [string_product_id => quantity]
@@ -82,15 +80,15 @@ class BasketService
    *
    * @return array
    */
-   public function removePrefix(array $basket): array
-   {
-       $productIdQty = [];
-       foreach ($basket as $key => $value) {
-           $productIdQty[ltrim($key, self::SESSION_PREFIX)] = $value;
-       }
+    public function removePrefix(array $basket): array
+    {
+        $productIdQty = [];
+        foreach ($basket as $key => $value) {
+            $productIdQty[ltrim($key, self::SESSION_PREFIX)] = $value;
+        }
 
-       return $productIdQty;
-   }
+        return $productIdQty;
+    }
 
   /**
   * Prefix id with $this->wishlistPrefix.
@@ -98,16 +96,19 @@ class BasketService
   *
   * @return string
   */
-   public function makeKey(int $id): string
-   {
-       return self::SESSION_PREFIX.$id;
-   }
+    public function makeKey(int $id): string
+    {
+        return self::SESSION_PREFIX.$id;
+    }
 
-   public function clear()
-   {
-     $keys = array_keys($this->getBasket($this->session));
-     foreach ($keys as $key) {
-         $this->session->remove(self::SESSION_PREFIX.$key);
-     }
-   }
+    /**
+     * Clears basket
+     */
+    public function clear(): void
+    {
+        $keys = array_keys($this->getBasket($this->session));
+        foreach ($keys as $key) {
+             $this->session->remove(self::SESSION_PREFIX.$key);
+        }
+    }
 }

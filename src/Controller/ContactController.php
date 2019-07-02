@@ -22,10 +22,10 @@ class ContactController extends Controller
      */
     public function index(ShopRepository $shopRepository): Response
     {
-        $shopArray = $shopRepository->findBy([],[],1);
+        $shopArray = $shopRepository->findBy([], [], 1);
 
         return $this->render('contact/index.html.twig', [
-            'shop' => isset($shopArray[0]) ? $shopArray[0] : new Shop()
+            'shop' => isset($shopArray[0]) ? $shopArray[0] : new Shop(),
         ]);
     }
 }

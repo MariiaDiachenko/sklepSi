@@ -60,6 +60,7 @@ class ProductController extends Controller
             $entityManager->flush();
 
             $this->addFlash('success', 'message.product_added');
+
             return $this->redirectToRoute('product_index');
         }
 
@@ -110,6 +111,7 @@ class ProductController extends Controller
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'message.product_edited');
+
             return $this->redirectToRoute('product_index', [
                 'id' => $product->getId(),
             ]);

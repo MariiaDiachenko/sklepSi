@@ -39,6 +39,9 @@ class DisposalRepository extends ServiceEntityRepository
 
     /**
     * Query all for specified userId
+    *
+    * @param  int $userId user id
+    *
     * @return QueryBuilder
     */
     public function queryForUser($userId): QueryBuilder

@@ -12,11 +12,19 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20190702203105 extends AbstractMigration
 {
+    /**
+     * get migration description
+     * @return string description
+     */
     public function getDescription() : string
     {
         return '';
     }
 
+    /**
+     * Update Schema
+     * @param Schema $schema [description]
+     */
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
@@ -43,6 +51,10 @@ final class Version20190702203105 extends AbstractMigration
         $this->addSql('CREATE TABLE users (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(80) NOT NULL COLLATE utf8mb4_unicode_ci, surname VARCHAR(80) NOT NULL COLLATE utf8mb4_unicode_ci, username VARCHAR(80) NOT NULL COLLATE utf8mb4_unicode_ci, password VARCHAR(255) NOT NULL COLLATE utf8mb4_unicode_ci, email VARCHAR(128) NOT NULL COLLATE utf8mb4_unicode_ci, phone VARCHAR(80) DEFAULT NULL COLLATE utf8mb4_unicode_ci, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, UNIQUE INDEX email_idx (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB COMMENT = \'\' ');
     }
 
+    /**
+     * Downgrade schema
+     * @param Schema $schema
+     */
     public function down(Schema $schema) : void
     {
         // this down() migration is auto-generated, please modify it to your needs

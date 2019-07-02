@@ -44,9 +44,10 @@ class DisposalController extends Controller
     /**
      * @Route("/disposal/index/{id}", name="disposal_user_index", methods={"GET"})
      *
-     * @param DisposalRepository $disposalRepository
-     * @param PaginatorInterface $paginator
-     * @param Request            $request
+     * @param  intd               $id
+     * @param  DisposalRepository $disposalRepository
+     * @param  PaginatorInterface $paginator
+     * @param  Request            $request
      *
      * @return Response
      */
@@ -105,11 +106,13 @@ class DisposalController extends Controller
         $user = $this->getUser();
 
         if (!$this->isGranted(USER::ROLE_ADMIN) && (int) $userId !== $user->getId()) {
-          $this->addFlash('danger', 'message.you_cant_view_this_disposal');
-          return $this->redirectToRoute('product_index');
+            $this->addFlash('danger', 'message.you_cant_view_this_disposal');
+
+            return $this->redirectToRoute('product_index');
         }
 
-        $shopEntities = $shopRepository->findBy([], [],  1);
+        $shopEntities = $shopRepository->findBy([], [], 1);
+
         return $this->render('disposal/user_show.html.twig', [
             'shop' => isset($shopEntities[0]) ? $shopEntities[0] : new Shop(),
             'disposal' => $disposal,

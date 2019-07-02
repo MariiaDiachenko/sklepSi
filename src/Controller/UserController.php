@@ -59,17 +59,17 @@ class UserController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-          $entityManager = $this->getDoctrine()->getManager();
-          if ($this->isGranted(USER::ROLE_ADMIN) && $form->get('isAdmin')->getData() === true) {
-            $role = new Role();
-            $role->setRole(USER::ROLE_ADMIN);
-            $role->setUser($user);
-            $entityManager->persist($role);
+            $entityManager = $this->getDoctrine()->getManager();
+            if ($this->isGranted(USER::ROLE_ADMIN) && $form->get('isAdmin')->getData() === true) {
+                $role = new Role();
+                $role->setRole(USER::ROLE_ADMIN);
+                $role->setUser($user);
+                $entityManager->persist($role);
 
-            $this->addFlash('success', 'message.admin_added');
-          } else {
-            $this->addFlash('success', 'message.user_added');
-          }
+                $this->addFlash('success', 'message.admin_added');
+            } else {
+                $this->addFlash('success', 'message.user_added');
+            }
 
 
             $user->setPassword(
@@ -110,8 +110,9 @@ class UserController extends Controller
     /**
      * @Route("/user/{id}/edit", name="user_edit", methods={"GET","POST"})
      *
-     * @param Request $request
-     * @param User    $user
+     * @param  Request                      $request
+     * @param  User                         $user
+     * @param  UserPasswordEncoderInterface $encoder
      *
      * @return Response
      */
@@ -186,9 +187,9 @@ class UserController extends Controller
         }
 
         if (count($user->getDisposals()) > 0) {
-          $this->addFlash('danger', 'message.cant_remove_user_having_disposals');
+            $this->addFlash('danger', 'message.cant_remove_user_having_disposals');
 
-          return $this->redirectToRoute('front_page');
+            return $this->redirectToRoute('front_page');
         }
 
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {

@@ -23,11 +23,12 @@ class BasketController extends Controller
 {
     /**
     * Basket widget for render in template
-    * @param Request           $request
-    * @param ProductRepository $productRepository
-    *
-    * @return Response
-    */
+     * @param  Request           $request
+     * @param  ProductRepository $productRepository
+     * @param  BasketService     $basketService
+     *
+     * @return Response
+     */
     public function widget(Request $request, ProductRepository $productRepository, BasketService $basketService): Response
     {
         $basketProducts = $basketService->makeBasketForRender($productRepository);
@@ -40,12 +41,15 @@ class BasketController extends Controller
     /**
      * @Route("/basket/checkout", name="basket_checkout", methods={"GET", "POST"})
      *
-     * @param Request            $request
-     * @param DisposalRepository $disposalRepository
-     * @param ProductRepository  $productRepository
-     * @param ShopRepository     $shopRepository
+     * Basket Checkout
      *
-     * @return Response
+     * @param  Request            $request            [description]
+     * @param  DisposalRepository $disposalRepository [description]
+     * @param  ProductRepository  $productRepository  [description]
+     * @param  ShopRepository     $shopRepository     [description]
+     * @param  BasketService      $basketService      [description]
+     *
+     * @return Response                               [description]
      */
     public function basketCheckout(Request $request, DisposalRepository $disposalRepository, ProductRepository $productRepository, ShopRepository $shopRepository, BasketService $basketService): Response
     {
@@ -57,10 +61,11 @@ class BasketController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-          if (count($basketProducts) < 1) {
-            $this->addFlash('danger', 'message.cant_buy_empty_basket');
-            return $this->redirectToRoute('basket_checkout');
-          }
+            if (count($basketProducts) < 1) {
+                $this->addFlash('danger', 'message.cant_buy_empty_basket');
+
+                return $this->redirectToRoute('basket_checkout');
+            }
 
             $user = $this->getUser();
 
@@ -88,6 +93,7 @@ class BasketController extends Controller
             $this->addFlash('success', 'message.roder_successfully_saved');
 
             $basketService->clear();
+
             return $this->redirectToRoute('disposal_user_show', ['id' => $disposal->getId(), 'user' => $user->getId()]);
         }
 
@@ -107,12 +113,13 @@ class BasketController extends Controller
     /**
      * @Route("/basket/add/{id}", name="basket_add", requirements={"id"="\d+"}, methods={"GET", "POST"})
      *
-     * @param string            $id
-     * @param Request           $request
-     * @param ProductRepository $productRepository
-     * @param SessionInterface  $session
+     * @param  int               $id
+     * @param  Request           $request
+     * @param  ProductRepository $productRepository
+     * @param  SessionInterface  $session
+     * @param  BasketService     $basketService
      *
-     * @return Response
+     * @return RedirectResponse
      */
     public function add($id, Request $request, ProductRepository $productRepository, SessionInterface $session, BasketService $basketService): RedirectResponse
     {
@@ -134,9 +141,10 @@ class BasketController extends Controller
     /**
      * @Route("/basket/remove/{id}", name="basket_remove", requirements={"id"="\d+"}, methods={"GET", "POST"})
      *
-     * @param string           $id
-     * @param Request          $request
-     * @param SessionInterface $session
+     * @param  int              $id
+     * @param  Request          $request
+     * @param  SessionInterface $session
+     * @param  BasketService    $basketService
      *
      * @return RedirectResponse
      */
@@ -153,10 +161,10 @@ class BasketController extends Controller
     /**
      * @Route("/basket/clear", name="basket_clear", methods={"GET", "POST"})
      *
-     * @param Request          $request
-     * @param SessionInterface $session
+     * @param  Request       $request       [description]
+     * @param  BasketService $basketService [description]
      *
-     * @return RedirectResponse
+     * @return RedirectResponse                [description]
      */
     public function clear(Request $request, BasketService $basketService): RedirectResponse
     {
