@@ -55,16 +55,20 @@ class BasketController extends Controller
 
         $this->denyAccessUnlessGranted('ROLE_USER');
 
-        $form = $this->createForm(AddressType::class, []);
+        $form = $this->createForm(AddressType::class, new Disposal());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+          if (count($basketProducts) < 1) {
+            $this->addFlash('danger', 'message.cant_buy_empty_basket');
+            return $this->redirectToRoute('basket_checkout');
+          }
+
             $user = $this->getUser();
 
-            $disposal = new Disposal();
+            $disposal = $form->getData();
             $disposal->setUser($user);
             $disposal->setStatus(Disposal::STATUS_WAITING_FOR_PAYMENT);
-            $disposal->setAddress($form->getData()['address']);
 
 
             foreach ($basketService->makeBasketForRender($session, $productRepository) as $productQty) {

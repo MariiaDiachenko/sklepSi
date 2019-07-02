@@ -124,3 +124,4 @@ WAITING_FOR_PAYMENT: 'CZEKAJĄCE NA OPŁACENIE'
 PAYED: OPŁACONE
 SENDED: WYSŁANE
 menu.user_disposals: 'Zamówienia'
+message.cant_buy_empty_basket: 'nie można kupić pustego koszyka'

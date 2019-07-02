@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use App\Entity\Disposal;
 
 /**
 * AddressType class
@@ -25,12 +27,18 @@ class AddressType extends AbstractType
    */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('address', TextType::class, [
-              'constraints' => [
-                new Assert\NotBlank(),
-                new Assert\Regex("/^[\p{L}_\d \n]+$/"),
-                new Assert\Length(['min' => 1, 'max' => 80]),
-              ],
+        $builder->add('address', TextType::class);
+    }
+
+    /**
+     * Configures the options for this type.
+     *
+     * @param OptionsResolver $resolver The resolver for the options
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => Disposal::class,
         ]);
     }
 }
