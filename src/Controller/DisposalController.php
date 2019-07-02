@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
+use App\Entity\Shop;
 
 /**
  * Disposal controller class
@@ -85,7 +86,7 @@ class DisposalController extends Controller
         }
 
         return $this->render('disposal/user_show.html.twig', [
-            'shop' => $shopRepository->findAll()[0],
+            'shop' => $shopRepository->findBy([], [],  1) ?? new Shop(),
             'disposal' => $disposal,
         ]);
     }

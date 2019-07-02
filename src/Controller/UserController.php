@@ -68,7 +68,7 @@ class UserController extends Controller
 
             $this->addFlash('success', 'message.admin_added');
           } else {
-            $this->addFlash('success', 'message.admin_added');
+            $this->addFlash('success', 'message.user_added');
           }
 
 

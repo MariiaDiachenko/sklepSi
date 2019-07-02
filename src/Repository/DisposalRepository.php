@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\ORM\QueryBuilder;
 
 /**
+ * Disposal Repository class
  * @method Disposal|null find($id, $lockMode = null, $lockVersion = null)
  * @method Disposal|null findOneBy(array $criteria, array $orderBy = null)
  * @method Disposal[]    findAll()
@@ -17,6 +18,7 @@ use Doctrine\ORM\QueryBuilder;
 class DisposalRepository extends ServiceEntityRepository
 {
     /**
+    * Class construct
     * @param RegistryInterface $registry
     */
     public function __construct(RegistryInterface $registry)
@@ -25,6 +27,7 @@ class DisposalRepository extends ServiceEntityRepository
     }
 
     /**
+    * Query all
     * @return QueryBuilder
     */
     public function queryAll(): QueryBuilder
@@ -33,33 +36,4 @@ class DisposalRepository extends ServiceEntityRepository
 
         return $builder;
     }
-
-    // /**
-    //  * @return Disposal[] Returns an array of Disposal objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('d.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Disposal
-    {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

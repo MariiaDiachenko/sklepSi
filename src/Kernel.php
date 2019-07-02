@@ -19,6 +19,7 @@ class Kernel extends BaseKernel
     const CONFIG_EXTS = '.{php,xml,yaml,yml}';
 
     /**
+     * Gets cache dir
      *
      * @return string
      */
@@ -28,6 +29,7 @@ class Kernel extends BaseKernel
     }
 
     /**
+     * gets log dir
      *
      * @return string
      */
@@ -50,6 +52,7 @@ class Kernel extends BaseKernel
     }
 
     /**
+     * Configuires container
      *
      * @param  ContainerBuilder $container [description]
      * @param  LoaderInterface  $loader    [description]
@@ -70,6 +73,7 @@ class Kernel extends BaseKernel
     }
 
     /**
+     * Configure routes
      *
      * @param  RouteCollectionBuilder $routes
      */

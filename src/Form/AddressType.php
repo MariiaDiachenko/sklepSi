@@ -12,9 +12,17 @@ use Symfony\Component\Validator\Constraints as Assert;
 */
 class AddressType extends AbstractType
 {
-    /**
-    * @inheritdoc
-    */
+  /**
+   * Builds the form.
+   *
+   * This method is called for each type in the hierarchy starting from the
+   * top most type. Type extensions can further modify the form.
+   *
+   * @see FormTypeExtensionInterface::buildForm()
+   *
+   * @param FormBuilderInterface $builder The form builder
+   * @param array                $options The options
+   */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('address', TextType::class, [
