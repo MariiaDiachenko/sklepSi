@@ -23,15 +23,14 @@ class BasketController extends Controller
 {
     /**
     * Basket widget for render in template
-    * @param SessionInterface  $session
     * @param Request           $request
     * @param ProductRepository $productRepository
     *
     * @return Response
     */
-    public function widget(SessionInterface $session, Request $request, ProductRepository $productRepository, BasketService $basketService): Response
+    public function widget(Request $request, ProductRepository $productRepository, BasketService $basketService): Response
     {
-        $basketProducts = $basketService->makeBasketForRender($session, $productRepository);
+        $basketProducts = $basketService->makeBasketForRender($productRepository);
 
         return $this->render('basket/widget.html.twig', [
             'basket_products' => $basketProducts,
@@ -42,16 +41,15 @@ class BasketController extends Controller
      * @Route("/basket/checkout", name="basket_checkout", methods={"GET", "POST"})
      *
      * @param Request            $request
-     * @param SessionInterface   $session
      * @param DisposalRepository $disposalRepository
      * @param ProductRepository  $productRepository
      * @param ShopRepository     $shopRepository
      *
      * @return Response
      */
-    public function basketCheckout(Request $request, SessionInterface $session, DisposalRepository $disposalRepository, ProductRepository $productRepository, ShopRepository $shopRepository, BasketService $basketService): Response
+    public function basketCheckout(Request $request, DisposalRepository $disposalRepository, ProductRepository $productRepository, ShopRepository $shopRepository, BasketService $basketService): Response
     {
-        $basketProducts = $basketService->makeBasketForRender($session, $productRepository);
+        $basketProducts = $basketService->makeBasketForRender($productRepository);
 
         $this->denyAccessUnlessGranted('ROLE_USER');
 
@@ -71,7 +69,7 @@ class BasketController extends Controller
             $disposal->setStatus(Disposal::STATUS_WAITING_FOR_PAYMENT);
 
 
-            foreach ($basketService->makeBasketForRender($session, $productRepository) as $productQty) {
+            foreach ($basketService->makeBasketForRender($productRepository) as $productQty) {
                 $detail = new DisposalDetails();
                 $product = $productQty[0];
                 $qty = $productQty[1];
@@ -89,6 +87,7 @@ class BasketController extends Controller
 
             $this->addFlash('success', 'message.roder_successfully_saved');
 
+            $basketService->clear();
             return $this->redirectToRoute('disposal_user_show', ['id' => $disposal->getId(), 'user' => $user->getId()]);
         }
 
@@ -159,12 +158,9 @@ class BasketController extends Controller
      *
      * @return RedirectResponse
      */
-    public function clear(Request $request, SessionInterface $session, BasketService $basketService): RedirectResponse
+    public function clear(Request $request, BasketService $basketService): RedirectResponse
     {
-        $keys = array_keys($basketService->getBasket($session));
-        foreach ($keys as $key) {
-            $session->remove($basketService::SESSION_PREFIX.$key);
-        }
+        $basketService->clear();
 
         return $this->redirect($basketService->getRefererUrl($request));
     }

@@ -19,6 +19,17 @@ class BasketService
   */
   const SESSION_PREFIX = 'basket_controller_session_bag_';
 
+  /** SessionInterface $session */
+  private $session;
+
+  /**
+   * Constructor
+   * @param SessionInterface $session [description]
+   */
+  public function __construct(SessionInterface $session)
+  {
+    $this->session = $session;
+  }
 
   /**
    * Makes b
@@ -27,9 +38,9 @@ class BasketService
    *
    * @return array [Product $product, int $quantity]
    */
-   public function makeBasketForRender(SessionInterface $session, ProductRepository $productRepository): array
+   public function makeBasketForRender(ProductRepository $productRepository): array
    {
-       $basket = $this->getBasket($session);
+       $basket = $this->getBasket($this->session);
        $basketProducts = $productRepository->findBy(['id' => array_keys($basket)]);
 
        return array_map(null, $basketProducts, $basket);
@@ -52,10 +63,10 @@ class BasketService
    *
    * @return string
    */
-   public function getBasket(SessionInterface $session): array
+   public function getBasket(): array
    {
        $basket = array_filter(
-           $session->all(),
+           $this->session->all(),
            function ($key) {
                return 0 === strpos($key, self::SESSION_PREFIX);
            },
@@ -90,5 +101,13 @@ class BasketService
    public function makeKey(int $id): string
    {
        return self::SESSION_PREFIX.$id;
+   }
+
+   public function clear()
+   {
+     $keys = array_keys($this->getBasket($this->session));
+     foreach ($keys as $key) {
+         $this->session->remove(self::SESSION_PREFIX.$key);
+     }
    }
 }
