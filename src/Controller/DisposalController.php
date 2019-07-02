@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Entity\Shop;
+use App\Entity\User;
 
 /**
  * Disposal controller class
@@ -80,13 +81,14 @@ class DisposalController extends Controller
     {
         $userId = $user;
         $user = $this->getUser();
-        if ((int) $userId !== $user->getId()) {
+        if (!$this->isGranted(USER::ROLE_ADMIN) || (int) $userId !== $user->getId()) {
             $this->addFlash('danger', 'message.you_cant_view_this_disposal');
             $this->redirectToRoute('product_index');
         }
 
+        $shopEntities = $shopRepository->findBy([], [],  1);
         return $this->render('disposal/user_show.html.twig', [
-            'shop' => $shopRepository->findBy([], [],  1) ?? new Shop(),
+            'shop' => isset($shopEntities[0]) ? $shopEntities[0] : new Shop(),
             'disposal' => $disposal,
         ]);
     }

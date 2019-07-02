@@ -1,7 +1,7 @@
 title.show_shop: sklep
 header.show_shop: sklep
 id: id
-name: Imię
+name: Nazwa
 address: Address
 phone: Telefon
 email: Email
@@ -9,7 +9,7 @@ button.back_to_list: Powrót
 button.edit: Edytować
 title.shop_index: 'sklep index'
 header.shop_index: 'sklep index'
-actions: actions
+actions: Akcje
 button.show: więcej
 no_records_found: 'Nic nie znaleziono'
 button.create_new: Nowy
@@ -72,8 +72,8 @@ menu.users: Użytkownik
 menu.shop: Sklep
 menu.category: Kategorie
 title.checkout: Zamówienia
-header.product_checkout: 'product checkout'
-img: Img
+header.product_checkout: 'odprawa'
+img: Obrazek
 price: Cena
 quantity: Ilość
 button.remove_from_basket: 'wyjmij z koszyka'
@@ -97,12 +97,12 @@ product.new: Nowość
 menu.user_edit: 'Konto'
 Name: Nazwa
 message.product_added_to_basket: 'Dodano do koszyka'
-message.Address: Adresa
+message.Address: Adres
 message.roder_successfully_saved: 'Zamówienie zapisane'
-bankAccount: bankAccount
-menu.contact: Contact
-title.contact: Contact
-header.contact: Contact
+bankAccount: 'konto bankowe'
+menu.contact: kontakt
+title.contact: kontakt
+header.contact: kontakt
 message.product_added: 'dodano produkt'
 message.product_edited: 'zedytowano produkt'
 message.product_deleted: 'usunieto produkt'
@@ -118,3 +118,8 @@ normal_user: użytkownik
 admin_user: administrator
 Is admin: "is admin"
 message.user_added: 'dodano użytkownika'
+Address: Address
+message.you_cant_view_this_disposal: 'nie możesz zobaczyć tego zamówienia'
+WAITING_FOR_PAYMENT: 'CZEKAJĄCE NA OPŁACENIE'
+PAYED: OPŁACONE
+SENDED: WYSŁANE

@@ -6,7 +6,7 @@
   <div class="dono">
     <h1>{{'header.disposal' | trans}}</h1>
     <div>
-    {{'header.your_disposal_status_is'|trans}} {{disposal.status}}
+    {{'header.your_disposal_status_is'|trans}} {{disposal.status | trans}}
     {{'header.please_pay_to_account_number' | trans}} {{shop.bankAccount}}
     </div>
     {{'header.with_header'|trans}} {{disposal.id ~'/'~ disposal.createdAt|date('YmdHis')}}
