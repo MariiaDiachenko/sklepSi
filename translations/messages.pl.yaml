@@ -6,15 +6,15 @@ address: Address
 phone: Telefon
 email: Email
 button.back_to_list: Powrót
-button.edit: Edytować
+button.edit: Edytuj
 title.shop_index: 'sklep index'
 header.shop_index: 'sklep index'
 actions: Akcje
 button.show: więcej
 no_records_found: 'Nic nie znaleziono'
 button.create_new: Nowy
-title.edit_shop: 'Edytować sklep'
-header.edit_shop: Edytować
+title.edit_shop: 'Edytuj sklep'
+header.edit_shop: Edytuj
 button.delete: usuń
 title.new_shop: 'nowy sklep'
 header.new_shop: 'nowy sklep'
@@ -49,10 +49,10 @@ title.disposal_show: 'disposal show'
 header.disposal_show: 'pokaz utylizacjie'
 status: Status
 product_name: 'Nazwa produktu'
-title.disposal_index: 'usuń zamówienie'
-header.disposal_index: 'usuń zamówienie'
-title.edit_disposal: edytować
-header.edit_disposal: edytować
+title.disposal_index: 'index zamówień'
+header.disposal_index: 'index zamówień'
+title.edit_disposal: Edytuj
+header.edit_disposal: Edytuj
 header.disposal: Zamówienie
 header.your_disposal_status_is: 'twój status zamówienia to'
 header.please_pay_to_account_number: 'zapłać na numer konta'
@@ -88,8 +88,8 @@ title.product: Produkt
 button.add_to_basket: 'dodaj do koszyka'
 title.product_index: 'produkt index'
 button.createNew: Nowy
-title.edit_product: 'Edytować produkt'
-header.edit_product: Edytować
+title.edit_product: 'Edytuj produkt'
+header.edit_product: Edytuj
 title.new_product: Nowy
 '': ''
 product.recommended: Wyprzedaż
@@ -125,3 +125,21 @@ PAYED: OPŁACONE
 SENDED: WYSŁANE
 menu.user_disposals: 'Zamówienia'
 message.cant_buy_empty_basket: 'nie można kupić pustego koszyka'
+message.cretated_successfully: 'utworzono pomyślnie'
+message.cant_delete_category_containing_products: 'nie można usunąć kategori zawierającej produkty'
+header.category_edit: 'edytuj kategorię'
+message.deleted_succesfully: 'usunięto pomyślnie'
+Img: Obrazek
+Price: Cena
+Description: Opis
+Is recommended: Rekomendowane
+Is new:	Nowe
+Category: Kategoria
+Shop: Sklep
+message.edited_succesfully: 'zedytowano pomyślnie'
+Status: Status
+email_in_use: "email już w użyciu"
+username_in_use: "nazwa użytkownika już w użyciu"
+Bank account: 'konto bankowe'
+message.cant_delete_shop_containing_products: 'nie można usunąć sklepu zawierającego produkty'
+you cant have more than one shop: 'nie możesz posiadać więcej niż jednego sklepu'

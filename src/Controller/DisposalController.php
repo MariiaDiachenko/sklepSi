@@ -42,7 +42,7 @@ class DisposalController extends Controller
     }
 
     /**
-     * @Route("/disposal/index/{id}", name="disposal_user_index", methods={"GET"})
+     * @Route("/disposal/index/{userId}", name="disposal_user_index", requirements={"userId"="\d+"}, methods={"GET"})
      *
      * @param  intd               $id
      * @param  DisposalRepository $disposalRepository
@@ -51,43 +51,16 @@ class DisposalController extends Controller
      *
      * @return Response
      */
-    public function userDisposalIndex($id, DisposalRepository $disposalRepository, PaginatorInterface $paginator, Request $request): Response
+    public function userDisposalIndex($userId, DisposalRepository $disposalRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $pagination = $paginator->paginate(
-            $disposalRepository->queryForUser($id),
+            $disposalRepository->queryForUser($userId),
             $request->query->getInt('page', 1),
             Disposal::NUMBER_OF_ITEMS
         );
 
         return $this->render('disposal/index.html.twig', [
             'disposals' => $pagination,
-        ]);
-    }
-
-    /**
-     * @Route("/admin/disposal/new", name="disposal_new", methods={"GET","POST"})
-     *
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function new(Request $request): Response
-    {
-        $disposal = new Disposal();
-        $form = $this->createForm(DisposalType::class, $disposal);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($disposal);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('disposal_index');
-        }
-
-        return $this->render('disposal/new.html.twig', [
-            'disposal' => $disposal,
-            'form' => $form->createView(),
         ]);
     }
 
@@ -149,6 +122,7 @@ class DisposalController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash('success', 'message.edited_succesfully');
             return $this->redirectToRoute('disposal_index', [
                 'id' => $disposal->getId(),
             ]);
@@ -174,6 +148,7 @@ class DisposalController extends Controller
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($disposal);
             $entityManager->flush();
+            $this->addFlash('success', 'message.deleted_succesfully');
         }
 
         return $this->redirectToRoute('disposal_index');

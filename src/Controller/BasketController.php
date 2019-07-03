@@ -29,7 +29,7 @@ class BasketController extends Controller
      *
      * @return Response
      */
-    public function widget(Request $request, ProductRepository $productRepository, BasketService $basketService): Response
+    public function widget(ProductRepository $productRepository, BasketService $basketService): Response
     {
         $basketProducts = $basketService->makeBasketForRender($productRepository);
 
@@ -51,7 +51,7 @@ class BasketController extends Controller
      *
      * @return Response                               [description]
      */
-    public function basketCheckout(Request $request, DisposalRepository $disposalRepository, ProductRepository $productRepository, ShopRepository $shopRepository, BasketService $basketService): Response
+    public function basketCheckout(Request $request, ProductRepository $productRepository, BasketService $basketService): Response
     {
         $basketProducts = $basketService->makeBasketForRender($productRepository);
 
@@ -111,7 +111,7 @@ class BasketController extends Controller
     }
 
     /**
-     * @Route("/basket/add/{id}", name="basket_add", requirements={"id"="\d+"}, methods={"GET", "POST"})
+     * @Route("/basket/add/{productId}", name="basket_add", requirements={"id"="\d+"}, methods={"GET", "POST"})
      *
      * @param  int               $id
      * @param  Request           $request
@@ -121,25 +121,26 @@ class BasketController extends Controller
      *
      * @return RedirectResponse
      */
-    public function add($id, Request $request, ProductRepository $productRepository, SessionInterface $session, BasketService $basketService): RedirectResponse
+    public function add($productId, Request $request, ProductRepository $productRepository, SessionInterface $session, BasketService $basketService): RedirectResponse
     {
-        $id = intval($id);
-        if (is_int($id) && $productRepository->find($id)) {
-            $productKey = $basketService->makeKey($id);
+        $productId = intval($productId);
+        if (is_int($productId) && $productRepository->find($productId)) {
+            $productKey = $basketService->makeKey($productId);
             $quantity = $session->get($productKey) ?? 0;
             ++$quantity;
-            $session->set($basketService->makeKey($id), $quantity);
+            $session->set($basketService->makeKey($productId), $quantity);
 
             $this->addFlash('success', 'message.product_added_to_basket');
-        } else {
-            $this->addFlash('danger', 'message.unable_to_add_this_product_to_basket');
+
+            return $this->redirect($basketService->getRefererUrl($request));
         }
 
+        $this->addFlash('danger', 'message.unable_to_add_this_product_to_basket');    
         return $this->redirect($basketService->getRefererUrl($request));
     }
 
     /**
-     * @Route("/basket/remove/{id}", name="basket_remove", requirements={"id"="\d+"}, methods={"GET", "POST"})
+     * @Route("/basket/remove/{productId}", name="basket_remove", requirements={"productId"="\d+"}, methods={"GET", "POST"})
      *
      * @param  int              $id
      * @param  Request          $request
@@ -148,11 +149,11 @@ class BasketController extends Controller
      *
      * @return RedirectResponse
      */
-    public function remove($id, Request $request, SessionInterface $session, BasketService $basketService): RedirectResponse
+    public function remove($productId, Request $request, SessionInterface $session, BasketService $basketService): RedirectResponse
     {
-        $id = intval($id);
+        $productId = intval($productId);
         $session->remove(
-            $basketService->makeKey($id)
+            $basketService->makeKey($productId)
         );
 
         return $this->redirect($basketService->getRefererUrl($request));

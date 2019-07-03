@@ -104,7 +104,8 @@ class ProductController extends Controller
             $formImg = $product->getImg();
             if (null !== $formImg) {
                 $product->setImg($formImg);
-            } else {
+            }
+            if (null === $formImg) {
                 $product->setImg($img);
             }
 

@@ -11,7 +11,7 @@
       <a href="{{ path('product_show', {'id': product.id}) }}">
         <span class="btn btn-success m-2">{{"button.show" | trans}}</span>
       </a>
-      <a href="{{ path('basket_add', {'id' : product.id}) }}">
+      <a href="{{ path('basket_add', {'productId' : product.id}) }}">
         <span class="btn btn-success m-2">{{"button.add_to_basket" | trans}}</span>
       </a>
     </div>

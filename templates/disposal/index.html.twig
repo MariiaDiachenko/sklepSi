@@ -27,7 +27,7 @@
             <tr>
                 <td>{{ disposal.id }}</td>
                 <td>{{ disposal.address }}</td>
-                <td>{{ disposal.status }}</td>
+                <td>{{ disposal.status | trans }}</td>
                 <td>{{ disposal.createdAt ? disposal.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ disposal.updatedAt ? disposal.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
@@ -48,8 +48,4 @@
     <div class="navigation text-center">
       {{ knp_pagination_render(disposals) }}
     </div>
-
-    {% if is_granted('ROLE_ADMIN') %}
-      <a href="{{ path('disposal_new') }}">{{'button.create_new' | trans }}</a>
-    {% endif %}
 {% endblock %}

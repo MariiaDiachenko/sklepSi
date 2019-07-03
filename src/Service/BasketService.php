@@ -92,13 +92,13 @@ class BasketService
 
   /**
   * Prefix id with $this->wishlistPrefix.
-  * @param int $id
+  * @param int $productId
   *
   * @return string
   */
-    public function makeKey(int $id): string
+    public function makeKey(int $productId): string
     {
-        return self::SESSION_PREFIX.$id;
+        return self::SESSION_PREFIX.$productId;
     }
 
     /**

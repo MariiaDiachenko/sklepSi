@@ -28,7 +28,7 @@ class ProductFixtures extends AbstractBaseFixtures implements DependentFixtureIn
             $product->setName($this->faker->unique()->word());
             $product->setPrice($this->faker->unique()->numberBetween(1000, 30000));
             $product->setImg('b4fc1626265d3a6337783739ba39fc8b9c618275950029d26c73c248e95eadbb.jpeg');
-            $product->setDescription($this->faker->paragraph($nbSentences = 1, $variableNbSentences = true));
+            $product->setDescription($this->faker->paragraph(1, true));
             $product->setCategory($categories[random_int(0, 9)]);
             $product->setShop($shops[0]);
             $product->setIsNew($this->faker->boolean(25));

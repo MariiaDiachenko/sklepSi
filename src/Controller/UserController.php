@@ -60,16 +60,17 @@ class UserController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $message = 'message.user_added';
             if ($this->isGranted(USER::ROLE_ADMIN) && $form->get('isAdmin')->getData() === true) {
                 $role = new Role();
                 $role->setRole(USER::ROLE_ADMIN);
                 $role->setUser($user);
                 $entityManager->persist($role);
 
-                $this->addFlash('success', 'message.admin_added');
-            } else {
-                $this->addFlash('success', 'message.user_added');
+                $message = 'message.admin_added';
             }
+
+            $this->addFlash('success', 'message.user_added');
 
 
             $user->setPassword(
@@ -131,8 +132,9 @@ class UserController extends Controller
                 $encoder->encodePassword($user, $user->getPassword())
             );
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'message.edited_succesfully');
 
-            return $this->redirectToRoute('user_index', [
+            return $this->redirectToRoute('user_edit', [
                 'id' => $user->getId(),
             ]);
         }
@@ -151,16 +153,16 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function addAdmin(Request $request, User $user): Response
+    public function addAdmin(User $user): Response
     {
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             $role = new Role();
             $role->setRole(USER::ROLE_ADMIN);
             $role->setUser($user);
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($role);
-            $em->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($role);
+            $entityManager->flush();
 
             $this->addFlash('success', 'message.admin_added');
         }
@@ -188,7 +190,6 @@ class UserController extends Controller
 
         if (count($user->getDisposals()) > 0) {
             $this->addFlash('danger', 'message.cant_remove_user_having_disposals');
-
             return $this->redirectToRoute('front_page');
         }
 
@@ -196,6 +197,7 @@ class UserController extends Controller
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
             $entityManager->flush();
+            $this->addFlash('success', 'message.deleted_succesfully');
         }
 
         return $this->redirectToRoute('user_index');
