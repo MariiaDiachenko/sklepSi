@@ -22,8 +22,7 @@ use App\Service\BasketService;
 class BasketController extends Controller
 {
     /**
-    * Basket widget for render in template
-     * @param  Request           $request
+     * Basket widget for render in template
      * @param  ProductRepository $productRepository
      * @param  BasketService     $basketService
      *
@@ -43,13 +42,11 @@ class BasketController extends Controller
      *
      * Basket Checkout
      *
-     * @param  Request            $request            [description]
-     * @param  DisposalRepository $disposalRepository [description]
-     * @param  ProductRepository  $productRepository  [description]
-     * @param  ShopRepository     $shopRepository     [description]
-     * @param  BasketService      $basketService      [description]
+     * @param  Request           $request           [description]
+     * @param  ProductRepository $productRepository [description]
+     * @param  BasketService     $basketService     [description]
      *
-     * @return Response                               [description]
+     * @return Response                             [description]
      */
     public function basketCheckout(Request $request, ProductRepository $productRepository, BasketService $basketService): Response
     {
@@ -113,7 +110,8 @@ class BasketController extends Controller
     /**
      * @Route("/basket/add/{productId}", name="basket_add", requirements={"id"="\d+"}, methods={"GET", "POST"})
      *
-     * @param  int               $id
+     * Adds new product to basket
+     * @param  int               $productId
      * @param  Request           $request
      * @param  ProductRepository $productRepository
      * @param  SessionInterface  $session
@@ -135,14 +133,15 @@ class BasketController extends Controller
             return $this->redirect($basketService->getRefererUrl($request));
         }
 
-        $this->addFlash('danger', 'message.unable_to_add_this_product_to_basket');    
+        $this->addFlash('danger', 'message.unable_to_add_this_product_to_basket');
+
         return $this->redirect($basketService->getRefererUrl($request));
     }
 
     /**
      * @Route("/basket/remove/{productId}", name="basket_remove", requirements={"productId"="\d+"}, methods={"GET", "POST"})
      *
-     * @param  int              $id
+     * @param  int              $productId
      * @param  Request          $request
      * @param  SessionInterface $session
      * @param  BasketService    $basketService

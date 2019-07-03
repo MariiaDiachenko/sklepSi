@@ -44,7 +44,7 @@ class DisposalController extends Controller
     /**
      * @Route("/disposal/index/{userId}", name="disposal_user_index", requirements={"userId"="\d+"}, methods={"GET"})
      *
-     * @param  intd               $id
+     * @param  int                $userId
      * @param  DisposalRepository $disposalRepository
      * @param  PaginatorInterface $paginator
      * @param  Request            $request
@@ -123,6 +123,7 @@ class DisposalController extends Controller
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'message.edited_succesfully');
+
             return $this->redirectToRoute('disposal_index', [
                 'id' => $disposal->getId(),
             ]);

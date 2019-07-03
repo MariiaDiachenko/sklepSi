@@ -148,8 +148,7 @@ class UserController extends Controller
     /**
      * @Route("/admin/user/{id}/addAdmin", name="user_addAdmin", methods={"GET"})
      *
-     * @param Request $request
-     * @param User    $user
+     * @param User $user
      *
      * @return Response
      */
@@ -190,6 +189,7 @@ class UserController extends Controller
 
         if (count($user->getDisposals()) > 0) {
             $this->addFlash('danger', 'message.cant_remove_user_having_disposals');
+
             return $this->redirectToRoute('front_page');
         }
 
