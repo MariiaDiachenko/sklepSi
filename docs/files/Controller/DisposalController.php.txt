@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
+use App\Entity\Shop;
+use App\Entity\User;
 
 /**
  * Disposal controller class
@@ -18,6 +20,7 @@ use Knp\Component\Pager\PaginatorInterface;
 class DisposalController extends Controller
 {
     /**
+     * Show index of all disposals available only to admin
      * @Route("/admin/disposal/", name="disposal_index", methods={"GET"})
      *
      * @param DisposalRepository $disposalRepository
@@ -40,33 +43,31 @@ class DisposalController extends Controller
     }
 
     /**
-     * @Route("/admin/disposal/new", name="disposal_new", methods={"GET","POST"})
+     * Show index of specific user disposals
+     * @Route("/disposal/index/{userId}", name="disposal_user_index", requirements={"userId"="\d+"}, methods={"GET"})
      *
-     * @param Request $request
+     * @param  int                $userId
+     * @param  DisposalRepository $disposalRepository
+     * @param  PaginatorInterface $paginator
+     * @param  Request            $request
      *
      * @return Response
      */
-    public function new(Request $request): Response
+    public function userDisposalIndex($userId, DisposalRepository $disposalRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        $disposal = new Disposal();
-        $form = $this->createForm(DisposalType::class, $disposal);
-        $form->handleRequest($request);
+        $pagination = $paginator->paginate(
+            $disposalRepository->queryForUser($userId),
+            $request->query->getInt('page', 1),
+            Disposal::NUMBER_OF_ITEMS
+        );
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($disposal);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('disposal_index');
-        }
-
-        return $this->render('disposal/new.html.twig', [
-            'disposal' => $disposal,
-            'form' => $form->createView(),
+        return $this->render('disposal/index.html.twig', [
+            'disposals' => $pagination,
         ]);
     }
 
     /**
+     * Show currently ordered disposal
      * @Route("/disposal/{id}/{user}", name="disposal_user_show", requirements={"id"="\d+", "user"="\d+"}, methods={"GET"})
      *
      * @param Disposal       $disposal
@@ -79,18 +80,23 @@ class DisposalController extends Controller
     {
         $userId = $user;
         $user = $this->getUser();
-        if ((int) $userId !== $user->getId()) {
+
+        if (!$this->isGranted(USER::ROLE_ADMIN) && (int) $userId !== $user->getId()) {
             $this->addFlash('danger', 'message.you_cant_view_this_disposal');
-            $this->redirectToRoute('product_index');
+
+            return $this->redirectToRoute('product_index');
         }
 
+        $shopEntities = $shopRepository->findBy([], [], 1);
+
         return $this->render('disposal/user_show.html.twig', [
-            'shop' => $shopRepository->findAll()[0],
+            'shop' => isset($shopEntities[0]) ? $shopEntities[0] : new Shop(),
             'disposal' => $disposal,
         ]);
     }
 
     /**
+     * Show specific dispoal
      * @Route("/admin/disposal/{id}", name="disposal_show", methods={"GET"})
      *
      * @param Disposal $disposal
@@ -105,6 +111,7 @@ class DisposalController extends Controller
     }
 
     /**
+     * Edit disposal
      * @Route("/admin/disposal/{id}/edit", name="disposal_edit", methods={"GET","POST"})
      *
      * @param Request  $request
@@ -120,6 +127,8 @@ class DisposalController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash('success', 'message.edited_succesfully');
+
             return $this->redirectToRoute('disposal_index', [
                 'id' => $disposal->getId(),
             ]);
@@ -132,6 +141,7 @@ class DisposalController extends Controller
     }
 
     /**
+     * Delete specific disposal
      * @Route("/admin/disposal/{id}", name="disposal_delete", methods={"DELETE"})
      *
      * @param Request  $request
@@ -145,6 +155,7 @@ class DisposalController extends Controller
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($disposal);
             $entityManager->flush();
+            $this->addFlash('success', 'message.deleted_succesfully');
         }
 
         return $this->redirectToRoute('disposal_index');

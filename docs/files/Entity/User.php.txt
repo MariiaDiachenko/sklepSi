@@ -13,17 +13,18 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @ORM\Table(
+ *  @ORM\Table(
  *     name="users",
  *     uniqueConstraints={
  *          @ORM\UniqueConstraint(
  *              name="email_idx",
- *              columns={"email"},
+ *              columns={"email"}
  *          )
  *     }
  * )
  *
- * @UniqueEntity(fields={"email", "username"})
+ * @UniqueEntity("email", groups={"registration"}, message="email_in_use")
+ * @UniqueEntity("username", groups={"registration"}, message="username_in_use")
  */
 class User implements UserInterface
 {

@@ -13,8 +13,10 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 class RoleFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
 {
     /**
-    * @inheritdoc
-    */
+     * Load data.
+     *
+     * @param \Doctrine\Common\Persistence\ObjectManager $manager
+     */
     public function loadData(ObjectManager $manager): void
     {
         $admin = $manager->getRepository(User::class)->findBy(['username' => 'admin'])[0];
@@ -29,8 +31,11 @@ class RoleFixtures extends AbstractBaseFixtures implements DependentFixtureInter
     }
 
     /**
-    * @inheritdoc
-    */
+     * This method must return an array of fixtures classes
+     * on which the implementing class depends on
+     *
+     * @return array
+     */
     public function getDependencies()
     {
         return [

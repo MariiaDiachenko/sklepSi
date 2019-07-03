@@ -20,6 +20,7 @@ use App\Entity\User;
 class DisposalController extends Controller
 {
     /**
+     * Show index of all disposals available only to admin
      * @Route("/admin/disposal/", name="disposal_index", methods={"GET"})
      *
      * @param DisposalRepository $disposalRepository
@@ -42,6 +43,7 @@ class DisposalController extends Controller
     }
 
     /**
+     * Show index of specific user disposals
      * @Route("/disposal/index/{userId}", name="disposal_user_index", requirements={"userId"="\d+"}, methods={"GET"})
      *
      * @param  int                $userId
@@ -65,6 +67,7 @@ class DisposalController extends Controller
     }
 
     /**
+     * Show currently ordered disposal
      * @Route("/disposal/{id}/{user}", name="disposal_user_show", requirements={"id"="\d+", "user"="\d+"}, methods={"GET"})
      *
      * @param Disposal       $disposal
@@ -93,6 +96,7 @@ class DisposalController extends Controller
     }
 
     /**
+     * Show specific dispoal
      * @Route("/admin/disposal/{id}", name="disposal_show", methods={"GET"})
      *
      * @param Disposal $disposal
@@ -107,6 +111,7 @@ class DisposalController extends Controller
     }
 
     /**
+     * Edit disposal
      * @Route("/admin/disposal/{id}/edit", name="disposal_edit", methods={"GET","POST"})
      *
      * @param Request  $request
@@ -136,6 +141,7 @@ class DisposalController extends Controller
     }
 
     /**
+     * Delete specific disposal
      * @Route("/admin/disposal/{id}", name="disposal_delete", methods={"DELETE"})
      *
      * @param Request  $request

@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 class ContactController extends Controller
 {
     /**
+     * Show Shop contact data
      * @Route("/contact", name="contact", methods={"GET"})
      *
      * @param ShopRepository $shopRepository

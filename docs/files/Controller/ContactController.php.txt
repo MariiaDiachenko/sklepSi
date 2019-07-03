@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 class ContactController extends Controller
 {
     /**
+     * Show Shop contact data
      * @Route("/contact", name="contact", methods={"GET"})
      *
      * @param ShopRepository $shopRepository
@@ -22,10 +23,10 @@ class ContactController extends Controller
      */
     public function index(ShopRepository $shopRepository): Response
     {
-        $shopArray = $shopRepository->findBy([],[],1);
+        $shopArray = $shopRepository->findBy([], [], 1);
 
         return $this->render('contact/index.html.twig', [
-            'shop' => isset($shopArray[0]) ? $shopArray[0] : new Shop()
+            'shop' => isset($shopArray[0]) ? $shopArray[0] : new Shop(),
         ]);
     }
 }

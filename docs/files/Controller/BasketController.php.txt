@@ -14,6 +14,7 @@ use App\Entity\Disposal;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use App\Form\AddressType;
+use App\Service\BasketService;
 
 /**
 * BasketController class
@@ -21,21 +22,15 @@ use App\Form\AddressType;
 class BasketController extends Controller
 {
     /**
-    * string session variable previx
-    */
-    const SESSION_PREFIX = 'basket_controller_session_bag_';
-
-    /**
-    * Basket widget for render in template
-    * @param SessionInterface  $session
-    * @param Request           $request
-    * @param ProductRepository $productRepository
-    *
-    * @return Response
-    */
-    public function widget(SessionInterface $session, Request $request, ProductRepository $productRepository): Response
+     * Basket widget for render in template
+     * @param  ProductRepository $productRepository
+     * @param  BasketService     $basketService
+     *
+     * @return Response
+     */
+    public function widget(ProductRepository $productRepository, BasketService $basketService): Response
     {
-        $basketProducts = $this->makeBasketForRender($session, $productRepository);
+        $basketProducts = $basketService->makeBasketForRender($productRepository);
 
         return $this->render('basket/widget.html.twig', [
             'basket_products' => $basketProducts,
@@ -43,36 +38,40 @@ class BasketController extends Controller
     }
 
     /**
+     * Basket Checkout
+     *
      * @Route("/basket/checkout", name="basket_checkout", methods={"GET", "POST"})
      *
-     * @param Request            $request
-     * @param SessionInterface   $session
-     * @param DisposalRepository $disposalRepository
-     * @param ProductRepository  $productRepository
-     * @param ShopRepository     $shopRepository
+     * @param  Request           $request           [description]
+     * @param  ProductRepository $productRepository [description]
+     * @param  BasketService     $basketService     [description]
      *
-     * @return Response
+     * @return Response                             [description]
      */
-    public function basketCheckout(Request $request, SessionInterface $session, DisposalRepository $disposalRepository, ProductRepository $productRepository, ShopRepository $shopRepository): Response
+    public function basketCheckout(Request $request, ProductRepository $productRepository, BasketService $basketService): Response
     {
-        $basketProducts = $this->makeBasketForRender($session, $productRepository);
+        $basketProducts = $basketService->makeBasketForRender($productRepository);
 
         $this->denyAccessUnlessGranted('ROLE_USER');
 
-        $form = $this->createForm(AddressType::class, []);
+        $form = $this->createForm(AddressType::class, new Disposal());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $shop = $shopRepository->findAll()[0];
+            if (count($basketProducts) < 1) {
+                $this->addFlash('danger', 'message.cant_buy_empty_basket');
+
+                return $this->redirectToRoute('basket_checkout');
+            }
+
             $user = $this->getUser();
 
-            $disposal = new Disposal();
+            $disposal = $form->getData();
             $disposal->setUser($user);
             $disposal->setStatus(Disposal::STATUS_WAITING_FOR_PAYMENT);
-            $disposal->setAddress($form->getData()['address']);
 
 
-            foreach ($this->makeBasketForRender($session, $productRepository) as $productQty) {
+            foreach ($basketService->makeBasketForRender($productRepository) as $productQty) {
                 $detail = new DisposalDetails();
                 $product = $productQty[0];
                 $qty = $productQty[1];
@@ -89,6 +88,8 @@ class BasketController extends Controller
             $entityManager->flush();
 
             $this->addFlash('success', 'message.roder_successfully_saved');
+
+            $basketService->clear();
 
             return $this->redirectToRoute('disposal_user_show', ['id' => $disposal->getId(), 'user' => $user->getId()]);
         }
@@ -107,139 +108,71 @@ class BasketController extends Controller
     }
 
     /**
-     * @Route("/basket/add/{id}", name="basket_add", requirements={"id"="\d+"}, methods={"GET", "POST"})
+     * Adds new product to basket
+     * @Route("/basket/add/{productId}", name="basket_add", requirements={"id"="\d+"}, methods={"GET", "POST"})
      *
-     * @param string            $id
-     * @param Request           $request
-     * @param ProductRepository $productRepository
-     * @param SessionInterface  $session
+     * @param  int               $productId
+     * @param  Request           $request
+     * @param  ProductRepository $productRepository
+     * @param  SessionInterface  $session
+     * @param  BasketService     $basketService
      *
-     * @return Response
+     * @return RedirectResponse
      */
-    public function add($id, Request $request, ProductRepository $productRepository, SessionInterface $session): RedirectResponse
+    public function add($productId, Request $request, ProductRepository $productRepository, SessionInterface $session, BasketService $basketService): RedirectResponse
     {
-        $id = intval($id);
-        if (is_int($id) && $productRepository->find($id)) {
-            $productKey = $this->makeKey($id);
+        $productId = intval($productId);
+        if (is_int($productId) && $productRepository->find($productId)) {
+            $productKey = $basketService->makeKey($productId);
             $quantity = $session->get($productKey) ?? 0;
             ++$quantity;
-            $session->set($this->makeKey($id), $quantity);
+            $session->set($basketService->makeKey($productId), $quantity);
 
             $this->addFlash('success', 'message.product_added_to_basket');
-        } else {
-            $this->addFlash('danger', 'message.unable_to_add_this_product_to_basket');
+
+            return $this->redirect($basketService->getRefererUrl($request));
         }
 
-        return $this->redirect($this->getRefererUrl($request));
+        $this->addFlash('danger', 'message.unable_to_add_this_product_to_basket');
+
+        return $this->redirect($basketService->getRefererUrl($request));
     }
 
     /**
-     * @Route("/basket/remove/{id}", name="basket_remove", requirements={"id"="\d+"}, methods={"GET", "POST"})
+     * Remove specified productId from basket
+     * @Route("/basket/remove/{productId}", name="basket_remove", requirements={"productId"="\d+"}, methods={"GET", "POST"})
      *
-     * @param string           $id
-     * @param Request          $request
-     * @param SessionInterface $session
+     * @param  int              $productId
+     * @param  Request          $request
+     * @param  SessionInterface $session
+     * @param  BasketService    $basketService
      *
      * @return RedirectResponse
      */
-    public function remove($id, Request $request, SessionInterface $session): RedirectResponse
+    public function remove($productId, Request $request, SessionInterface $session, BasketService $basketService): RedirectResponse
     {
-        $id = intval($id);
+        $productId = intval($productId);
         $session->remove(
-            $this->makeKey($id)
+            $basketService->makeKey($productId)
         );
 
-        return $this->redirect($this->getRefererUrl($request));
+        return $this->redirect($basketService->getRefererUrl($request));
     }
 
     /**
+     * Clear basket
      * @Route("/basket/clear", name="basket_clear", methods={"GET", "POST"})
      *
-     * @param Request          $request
-     * @param SessionInterface $session
+     * @param  Request       $request       [description]
+     * @param  BasketService $basketService [description]
      *
-     * @return RedirectResponse
+     * @return RedirectResponse                [description]
      */
-    public function clear(Request $request, SessionInterface $session): RedirectResponse
+    public function clear(Request $request, BasketService $basketService): RedirectResponse
     {
-        $keys = array_keys($this->getBasket($session));
-        foreach ($keys as $key) {
-            $session->remove(self::SESSION_PREFIX.$key);
-        }
+        $basketService->clear();
 
-        return $this->redirect($this->getRefererUrl($request));
-    }
-
-   /**
-    * Makes b
-    * @param SessionInterface  $session
-    * @param ProductRepository $productRepository
-    *
-    * @return array [Product $product, int $quantity]
-    */
-    private function makeBasketForRender(SessionInterface $session, ProductRepository $productRepository): array
-    {
-        $basket = $this->getBasket($session);
-        $basketProducts = $productRepository->findBy(['id' => array_keys($basket)]);
-
-        return array_map(null, $basketProducts, $basket);
-    }
-
-    /**
-    * Get address from wchich request was send
-    * @param Request $request
-    *
-    * @return string
-    */
-    private function getRefererUrl(Request $request): string
-    {
-        return $request->headers->get('referer');
-    }
-
-    /**
-    * Get array [key_containing_product_id => quantity]
-    * @param SessionInterface $session
-    *
-    * @return string
-    */
-    private function getBasket(SessionInterface $session): array
-    {
-        $basket = array_filter(
-            $session->all(),
-            function ($key) {
-                return 0 === strpos($key, self::SESSION_PREFIX);
-            },
-            ARRAY_FILTER_USE_KEY
-        );
-
-        return $this->removePrefix($basket);
-    }
-
-    /**
-    * Get array of [string_product_id => quantity]
-    * @param array $basket
-    *
-    * @return array
-    */
-    private function removePrefix(array $basket): array
-    {
-        $productIdQty = [];
-        foreach ($basket as $key => $value) {
-            $productIdQty[ltrim($key, self::SESSION_PREFIX)] = $value;
-        }
-
-        return $productIdQty;
-    }
-
-   /**
-   * Prefix id with $this->wishlistPrefix.
-   * @param int $id
-   *
-   * @return string
-   */
-    private function makeKey(int $id): string
-    {
-        return self::SESSION_PREFIX.$id;
+        return $this->redirect($basketService->getRefererUrl($request));
     }
 }
 

@@ -38,9 +38,9 @@ class BasketController extends Controller
     }
 
     /**
-     * @Route("/basket/checkout", name="basket_checkout", methods={"GET", "POST"})
-     *
      * Basket Checkout
+     *
+     * @Route("/basket/checkout", name="basket_checkout", methods={"GET", "POST"})
      *
      * @param  Request           $request           [description]
      * @param  ProductRepository $productRepository [description]
@@ -108,9 +108,9 @@ class BasketController extends Controller
     }
 
     /**
+     * Adds new product to basket
      * @Route("/basket/add/{productId}", name="basket_add", requirements={"id"="\d+"}, methods={"GET", "POST"})
      *
-     * Adds new product to basket
      * @param  int               $productId
      * @param  Request           $request
      * @param  ProductRepository $productRepository
@@ -139,6 +139,7 @@ class BasketController extends Controller
     }
 
     /**
+     * Remove specified productId from basket
      * @Route("/basket/remove/{productId}", name="basket_remove", requirements={"productId"="\d+"}, methods={"GET", "POST"})
      *
      * @param  int              $productId
@@ -159,6 +160,7 @@ class BasketController extends Controller
     }
 
     /**
+     * Clear basket
      * @Route("/basket/clear", name="basket_clear", methods={"GET", "POST"})
      *
      * @param  Request       $request       [description]

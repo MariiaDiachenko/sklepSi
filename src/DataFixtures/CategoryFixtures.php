@@ -11,8 +11,10 @@ use App\Entity\Category;
 class CategoryFixtures extends AbstractBaseFixtures
 {
     /**
-    * @inheritdoc
-    */
+     * Load data.
+     *
+     * @param \Doctrine\Common\Persistence\ObjectManager $manager
+     */
     public function loadData(ObjectManager $manager): void
     {
         for ($i = 0; $i < 10; ++$i) {

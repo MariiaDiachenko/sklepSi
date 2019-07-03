@@ -29,8 +29,10 @@ class UserFixtures extends AbstractBaseFixtures
     }
 
     /**
-    * @inheritdoc
-    */
+     * Load data.
+     *
+     * @param \Doctrine\Common\Persistence\ObjectManager $manager
+     */
     public function loadData(ObjectManager $manager): void
     {
         $admin = new User();

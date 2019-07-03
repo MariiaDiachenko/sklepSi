@@ -37,7 +37,6 @@ abstract class AbstractBaseFixtures extends Fixture
     {
         $this->manager = $manager;
         $this->faker = Factory::create();
-        $faker = $this->faker;
         $this->loadData($manager);
     }
 

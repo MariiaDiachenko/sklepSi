@@ -27,6 +27,10 @@ class Disposal
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Assert\NotBlank
+     * @Assert\Regex("/^[\p{L}_\d \n]+$/")
+     * @Assert\Length(min=1, max=80)
      */
     private $address;
 

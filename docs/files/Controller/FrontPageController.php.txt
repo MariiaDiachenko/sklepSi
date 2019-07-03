@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class FrontPageController extends Controller
 {
     /**
+     * Redirects from / to product index
      * @Route("/", name="front_page")
      *
      * @return RedirectResponse

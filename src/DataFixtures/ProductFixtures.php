@@ -15,8 +15,10 @@ class ProductFixtures extends AbstractBaseFixtures implements DependentFixtureIn
 {
 
     /**
-    * @inheritdoc
-    */
+     * Load data.
+     *
+     * @param \Doctrine\Common\Persistence\ObjectManager $manager
+     */
     public function loadData(ObjectManager $manager): void
     {
         $categories = $manager->getRepository(Category::class)->findBy([], null, 10);
@@ -39,8 +41,11 @@ class ProductFixtures extends AbstractBaseFixtures implements DependentFixtureIn
     }
 
     /**
-    * @inheritdoc
-    */
+     * This method must return an array of fixtures classes
+     * on which the implementing class depends on
+     *
+     * @return array
+     */
     public function getDependencies()
     {
         return [

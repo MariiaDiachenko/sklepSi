@@ -127,6 +127,7 @@ class CategoryController extends Controller
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($category);
             $entityManager->flush();
+            $this->addFlash('success', 'message.deleted_succesfully');
         }
 
         return $this->redirectToRoute('category_index');

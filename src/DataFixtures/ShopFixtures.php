@@ -11,8 +11,10 @@ use App\Entity\Shop;
 class ShopFixtures extends AbstractBaseFixtures
 {
     /**
-    * @inheritdoc
-    */
+     * Load data.
+     *
+     * @param \Doctrine\Common\Persistence\ObjectManager $manager
+     */
     public function loadData(ObjectManager $manager): void
     {
         $shop = new Shop();
